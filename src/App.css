@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.font-tt-fors-medium {
+  font-family: "TT-Fors-Medium";
+}
+
+.font-sanssemi-extralight {
+  font-family: "SansSemi-ExtraLight";
+}
