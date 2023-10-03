@@ -35,13 +35,13 @@ const HomePage = () => {
           <Tilt options={defaultOptions}>
             <div className="sign-up-btn font-tt-fors-medium">
               <div className="btn-text">Sign Up</div>
-            </div>{" "}
+            </div>
           </Tilt>
 
           <Tilt options={defaultOptions}>
             <div className="log-in-btn font-tt-fors-medium">
               <div className="btn-text">Log In</div>
-            </div>{" "}
+            </div>
           </Tilt>
         </div>
       </div>
