@@ -1,5 +1,11 @@
 import "./HomePage.css";
 import { Tilt } from "react-tilt";
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 
 const defaultOptions = {
   reverse: false, // reverse the tilt direction
@@ -16,6 +22,18 @@ const HomePage = () => {
   const whiteBackground = "./images/white.jpg";
   const noteyLogo = "./images/notey.png";
 
+  function FormRow() {
+    return (
+      <React.Fragment>
+        <Grid item xs={4}>
+          <Button>Item</Button>
+        </Grid>
+        <Grid item xs={4}>
+          <Button>Item</Button>
+        </Grid>
+      </React.Fragment>
+    );
+  }
   return (
     <div>
       <div className="gradient-background">
@@ -23,26 +41,33 @@ const HomePage = () => {
           className="white-background"
           style={{ backgroundImage: `url(${whiteBackground})` }}
         ></div>
-      </div>
 
-      <div className="container">
-        <img className="notey-logo" src={noteyLogo} alt="Logo" />
+        <div className="container">
+          <Grid container direction={"column"} spacing={4}>
+            <Grid item xl={6} md={6} sm={12} xs={12}>
+              <img className="notey-logo" src={noteyLogo} alt="Logo" />
+            </Grid>
+            <Grid item xl={6} md={6} sm={12} xs={12}>
+              <div className="desc font-sanssemi-extralight">
+                Write down anything. easily.
+              </div>
+            </Grid>
+            <Grid item xl={6} md={6} sm={12} xs={12}>
+              <div className="buttons-container">
+                <Tilt options={defaultOptions}>
+                  <div className="sign-up-btn font-tt-fors-regular">
+                    <div className="btn-text">Sign Up</div>
+                  </div>
+                </Tilt>
 
-        <div className="desc font-sanssemi-extralight">
-          Write down anything. easily.
-        </div>
-        <div className="buttons-container">
-          <Tilt options={defaultOptions}>
-            <div className="sign-up-btn font-tt-fors-medium">
-              <div className="btn-text">Sign Up</div>
-            </div>
-          </Tilt>
-
-          <Tilt options={defaultOptions}>
-            <div className="log-in-btn font-tt-fors-medium">
-              <div className="btn-text">Log In</div>
-            </div>
-          </Tilt>
+                <Tilt options={defaultOptions}>
+                  <div className="log-in-btn font-tt-fors-regular">
+                    <div className="btn-text">Log In</div>
+                  </div>
+                </Tilt>
+              </div>
+            </Grid>
+          </Grid>
         </div>
       </div>
     </div>

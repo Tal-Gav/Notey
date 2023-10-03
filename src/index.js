@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import "./fonts/TT-Fors-Medium.ttf";
+import "./fonts/TT-Fors-Regular.ttf";
 import "./fonts/EncodeSansSemiCondensed-ExtraLight.ttf";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

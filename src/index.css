@@ -23,3 +23,9 @@ code {
   src: local("SansSemi-ExtraLight"),
     url("./fonts/EncodeSansSemiCondensed-ExtraLight.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "TT-Fors-Regular";
+  src: local("TT-Fors-Regular"),
+    url("./fonts/TT-Fors-Regular.ttf") format("truetype");
+}
