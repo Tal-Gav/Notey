@@ -40,14 +40,12 @@
 }
 .buttons-container {
   justify-content: space-between;
-  flex-direction: row;
   display: flex;
-  align-items: center;
   width: 50%;
 }
 
 .notey-logo {
-  width: 70vh;
+  width: 68vh;
 }
 
 .desc {
@@ -57,7 +55,7 @@
   font-style: normal;
   font-weight: 275;
   line-height: normal;
-  letter-spacing: 1.2vh;
+  letter-spacing: 1.3vh;
   white-space: nowrap;
 }
 
