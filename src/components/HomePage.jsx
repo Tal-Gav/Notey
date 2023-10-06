@@ -2,12 +2,13 @@ import "./HomePage.css";
 import { Tilt } from "react-tilt";
 import * as React from "react";
 import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const defaultOptions = {
   reverse: false, // reverse the tilt direction
   max: 14, // max tilt rotation (degrees)
   perspective: 1000, // Transform perspective, the lower the more extreme the tilt gets.
-  scale: 1.05, // 2 = 200%, 1.5 = 150%, etc..
+  scale: 1.02, // 2 = 200%, 1.5 = 150%, etc..
   speed: 1000, // Speed of the enter/exit transition
   transition: true, // Set a transition on enter/exit.
   axis: null, // What axis should be disabled. Can be X or Y.
@@ -32,7 +33,12 @@ const HomePage = () => {
       <div className="container">
         <Grid container spacing={5} direction="column" alignItems="center">
           <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: 20 }}>
-            <img className="notey-logo" src={noteyLogo} alt="Logo" />
+            <img
+              className="notey-logo shadowed"
+              src={noteyLogo}
+              alt="Logo"
+              draggable="false"
+            />
           </Grid>
           <Grid item xl={6} md={6} sm={12} xs={12}>
             <div className="desc typewriter font-sanssemi-extralight">
@@ -46,21 +52,26 @@ const HomePage = () => {
             sm={12}
             xs={12}
             sx={{
-              marginTop: 20,
+              marginTop: 16,
               display: "flex",
               justifyContent: "center",
-              gap: "18vh",
+              gap: "8vh",
             }}
           >
             <Tilt options={defaultOptions}>
-              <div className="sign-up-btn font-tt-fors-regular">
-                <div className="btn-text">Sign Up</div>
-              </div>
+              {/* Wrap the "Sign Up" div with a Link component */}
+              <Link to="/signup" className="no-underscore">
+                <div className="sign-up-btn font-tt-fors-regular">
+                  <div className="btn-text">Sign Up</div>
+                </div>
+              </Link>
             </Tilt>
             <Tilt options={defaultOptions}>
-              <div className="log-in-btn font-tt-fors-regular">
-                <div className="btn-text">Log In</div>
-              </div>
+              <Link to="/login" className="no-underscore">
+                <div className="log-in-btn font-tt-fors-regular">
+                  <div className="btn-text">Log In</div>
+                </div>
+              </Link>
             </Tilt>
           </Grid>
         </Grid>
