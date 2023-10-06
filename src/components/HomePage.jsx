@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 
 const defaultOptions = {
   reverse: false, // reverse the tilt direction
-  max: 35, // max tilt rotation (degrees)
+  max: 14, // max tilt rotation (degrees)
   perspective: 1000, // Transform perspective, the lower the more extreme the tilt gets.
   scale: 1.05, // 2 = 200%, 1.5 = 150%, etc..
   speed: 1000, // Speed of the enter/exit transition
@@ -25,21 +25,17 @@ const HomePage = () => {
         className="white-background"
         style={{ backgroundImage: `url(${whiteBackground})` }}
       ></div>
-      <div className="gradient-background"></div>
+      {/* <div className="gradient-background"></div>  */}
+
+      <div className="grad" />
 
       <div className="container">
-        <Grid
-          container
-          spacing={5}
-          direction="column"
-          alignItems="center"
-          // minHeight="100vh"
-        >
-          <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: 25 }}>
+        <Grid container spacing={5} direction="column" alignItems="center">
+          <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: 20 }}>
             <img className="notey-logo" src={noteyLogo} alt="Logo" />
           </Grid>
           <Grid item xl={6} md={6} sm={12} xs={12}>
-            <div className="desc font-sanssemi-extralight">
+            <div className="desc typewriter font-sanssemi-extralight">
               Write down anything. easily.
             </div>
           </Grid>
@@ -50,7 +46,7 @@ const HomePage = () => {
             sm={12}
             xs={12}
             sx={{
-              marginTop: 25,
+              marginTop: 20,
               display: "flex",
               justifyContent: "center",
               gap: "18vh",
