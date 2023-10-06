@@ -1,4 +1,4 @@
-import "./HomePage.css";
+import "./Home.css";
 import { Tilt } from "react-tilt";
 import * as React from "react";
 import Grid from "@mui/material/Grid";
