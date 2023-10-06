@@ -21,54 +21,53 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="gradient-background">
-        <div
-          className="white-background"
-          style={{ backgroundImage: `url(${whiteBackground})` }}
-        ></div>
+      <div
+        className="white-background"
+        style={{ backgroundImage: `url(${whiteBackground})` }}
+      ></div>
+      <div className="gradient-background"></div>
 
-        <div className="container">
-          <Grid
-            container
-            spacing={5}
-            direction="column"
-            alignItems="center"
-            minHeight="100vh"
-          >
-            <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: 25 }}>
-              <img className="notey-logo" src={noteyLogo} alt="Logo" />
-            </Grid>
-            <Grid item xl={6} md={6} sm={12} xs={12}>
-              <div className="desc font-sanssemi-extralight">
-                Write down anything. easily.
-              </div>
-            </Grid>
-            <Grid
-              item
-              xl={6}
-              md={6}
-              sm={12}
-              xs={12}
-              sx={{
-                marginTop: 25,
-                display: "flex",
-                justifyContent: "center",
-                gap: "18vh",
-              }}
-            >
-              <Tilt options={defaultOptions}>
-                <div className="sign-up-btn font-tt-fors-regular">
-                  <div className="btn-text">Sign Up</div>
-                </div>
-              </Tilt>
-              <Tilt options={defaultOptions}>
-                <div className="log-in-btn font-tt-fors-regular">
-                  <div className="btn-text">Log In</div>
-                </div>
-              </Tilt>
-            </Grid>
+      <div className="container">
+        <Grid
+          container
+          spacing={5}
+          direction="column"
+          alignItems="center"
+          // minHeight="100vh"
+        >
+          <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: 25 }}>
+            <img className="notey-logo" src={noteyLogo} alt="Logo" />
           </Grid>
-        </div>
+          <Grid item xl={6} md={6} sm={12} xs={12}>
+            <div className="desc font-sanssemi-extralight">
+              Write down anything. easily.
+            </div>
+          </Grid>
+          <Grid
+            item
+            xl={6}
+            md={6}
+            sm={12}
+            xs={12}
+            sx={{
+              marginTop: 25,
+              display: "flex",
+              justifyContent: "center",
+              gap: "18vh",
+            }}
+          >
+            <Tilt options={defaultOptions}>
+              <div className="sign-up-btn font-tt-fors-regular">
+                <div className="btn-text">Sign Up</div>
+              </div>
+            </Tilt>
+            <Tilt options={defaultOptions}>
+              <div className="log-in-btn font-tt-fors-regular">
+                <div className="btn-text">Log In</div>
+              </div>
+            </Tilt>
+          </Grid>
+        </Grid>
       </div>
     </div>
   );
