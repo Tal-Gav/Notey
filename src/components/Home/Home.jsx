@@ -32,7 +32,7 @@ const HomePage = () => {
 
       <div className="container">
         <Grid container spacing={5} direction="column" alignItems="center">
-          <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: 20 }}>
+          <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: "18vh" }}>
             <img
               className="notey-logo shadowed"
               src={noteyLogo}
@@ -52,14 +52,13 @@ const HomePage = () => {
             sm={12}
             xs={12}
             sx={{
-              marginTop: 16,
+              marginTop: "6vh",
               display: "flex",
               justifyContent: "center",
               gap: "8vh",
             }}
           >
             <Tilt options={defaultOptions}>
-              {/* Wrap the "Sign Up" div with a Link component */}
               <Link to="/signup" className="no-underscore">
                 <div className="sign-up-btn font-tt-fors-regular">
                   <div className="btn-text">Sign Up</div>
