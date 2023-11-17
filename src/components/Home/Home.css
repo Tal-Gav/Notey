@@ -55,9 +55,9 @@
 }
 
 .sign-up-btn {
-  line-height: 4.7rem; /* Set line-height equal to the button's height */
-  width: 14rem;
-  height: 4.7rem;
+  line-height: 4.5rem; /* Set line-height equal to the button's height */
+  width: 12rem;
+  height: 4.5rem;
   border-radius: 1.5rem;
   background: radial-gradient(50% 50% at 50% 50%, #059f93 0%, #09b0a3 100%);
   box-shadow: 0px 0px 20px 0px #06a699;
@@ -66,9 +66,9 @@
 }
 
 .log-in-btn {
-  line-height: 4.2rem; /* Set line-height equal to the button's height */
-  width: 13.5rem; /* Adjust the width as needed */
-  height: 4.2rem; /* Set height equal to line-height */
+  line-height: 4rem; /* Set line-height equal to the button's height */
+  width: 11.5rem; /* Adjust the width as needed */
+  height: 4rem; /* Set height equal to line-height */
   border-radius: 1.5rem; /* Adjust the border-radius as needed */
   border: 0.5vh solid #b8faf5;
   background-color: transparent; /* Add this to ensure the shadow is visible */
@@ -80,7 +80,7 @@
 .btn-text {
   color: #fff;
   text-align: center;
-  font-size: 3vh;
+  font-size: 3.5vh;
   font-style: normal;
   position: relative; /* Add this */
   z-index: 1; /* Add this to ensure the text is on top of other elements */
