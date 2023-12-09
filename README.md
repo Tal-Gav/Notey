@@ -1,2 +1,2 @@
 # Notey - Notes Application
-Create and store notes.
+Create and store notes.📝
