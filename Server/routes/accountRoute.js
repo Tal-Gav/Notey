@@ -7,19 +7,22 @@ const router = express.Router();
 router.post("/", async (request, response) => {
   try {
     if (
-      !request.body.username ||
-      !request.body.password ||
-      !request.body.fullName
+      !request.body.firstName ||
+      !request.body.lastName ||
+      !request.body.email ||
+      !request.body.password
     ) {
       return response.status(400).send({
-        message: "Send all required fields: username, password, fullName.",
+        message:
+          "Send all required fields: firstName, lastName, email, password.",
       });
     }
 
     const newAccount = {
-      username: request.body.username,
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
+      email: request.body.email,
       password: request.body.password,
-      fullName: request.body.fullName,
     };
 
     const account = await Account.create(newAccount);
@@ -66,12 +69,14 @@ router.get("/:id", async (request, response) => {
 router.put("/:id", async (request, response) => {
   try {
     if (
-      !request.body.username ||
-      !request.body.password ||
-      !request.body.fullName
+      !request.body.firstName ||
+      !request.body.lastName ||
+      !request.body.email ||
+      !request.body.password
     ) {
       return response.status(400).send({
-        message: "Send all required fields: username, password, fullName.",
+        message:
+          "Send all required fields: firstName, lastName, email, password.",
       });
     }
 
