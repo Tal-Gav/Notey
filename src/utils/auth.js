@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { Account } from "../../Server/models/accountModel.js";
+import { Account } from "../models/accountModel.js";
 
 const generateAccessToken = (email) => {
   return jwt.sign({ email }, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
