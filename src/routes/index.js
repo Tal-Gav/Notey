@@ -1,6 +1,6 @@
 import express from "express";
-import accountRouter from "./accountRoute.js";
-import notesRouter from "./notesRoute.js";
+import accountRouter from "./account.route.js";
+import notesRouter from "./notes.route.js";
 
 const router = express.Router();
 

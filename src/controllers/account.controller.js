@@ -1,5 +1,5 @@
-import { Account } from "../models/accountModel.js";
-import { generateAccessToken } from "../utils/auth.js";
+import { Account } from "../models/account.model.js";
+import { generateAccessToken } from "../middlewares/auth.js";
 
 // Create a new account
 export const createAccount = async (req, res) => {
