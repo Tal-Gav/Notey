@@ -36,14 +36,13 @@ accountSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
 
   if (user) {
-    const passwordAuth = bcrypt.compare(password, user.password);
-
+    const passwordAuth = await bcrypt.compare(password, user.password);
     if (passwordAuth) {
-      throw Error("Incorrect password.");
+      return user;
     }
-  } else {
-    throw Error("Account does not exist.");
+    throw Error("Incorrect password.");
   }
+  throw Error("Account does not exist.");
 };
 // Create accounts collection
 export const Account = mongoose.model("Account", accountSchema);

@@ -2,7 +2,7 @@ import { Account } from "../models/account.model.js";
 import { generateAccessToken } from "../middlewares/auth.js";
 
 // Create a new account
-export const createAccount = async (req, res) => {
+export const signupAccount = async (req, res) => {
   try {
     if (
       !req.body.firstName ||
@@ -24,9 +24,31 @@ export const createAccount = async (req, res) => {
     };
 
     const account = await Account.create(newAccount);
+    const token = generateAccessToken(account._id);
 
-    const token = generateAccessToken(newAccount.email);
-    return res.status(201).json(token);
+    return res
+      .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
+      .json({ message: "Account created." });
+  } catch (error) {
+    console.log(error.message);
+
+    if (error.code === 11000) {
+      res.status(500).send({ message: "This email is already in use." });
+    } else {
+      res.status(500).send({ message: error.message });
+    }
+  }
+};
+
+export const loginAccount = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    console.log(email, password);
+    const account = await Account.login(email, password);
+    const token = generateAccessToken(account._id);
+    return res
+      .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
+      .json({ message: "Account logged in." });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
