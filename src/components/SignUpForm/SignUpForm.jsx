@@ -52,18 +52,24 @@ export default function SignUpForm() {
       email: form.get("email"),
       password: form.get("password"),
     };
+
     // setLoading(true);
     axios
-      .post("http://localhost:5555/accounts", account)
+      .post("http://localhost:5555/accounts/signup", account, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
       .then((res) => {
-        const token = res.data;
-        document.cookie = `token=${token}`;
+        console.log(res.data.message);
+        alert(res.data.message);
         navigate("/");
       })
       .catch((error) => {
         // setLoading(false);
         // alert('An error happened. Please Chack console');
-        alert(error);
+        alert(error.response.data.message);
       });
   };
 

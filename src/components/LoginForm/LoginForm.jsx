@@ -40,26 +40,31 @@ export default function LoginForm() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const submittedForm = (form) => {
-    form.preventDefault();
-
-    setEmail(form.target.email.value);
-    setPassword(form.target.password.value);
-    handleAccount();
+  const submittedForm = (event) => {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    handleAccount(form);
   };
 
-  const handleAccount = () => {
-    const account = { email, password };
-    // setLoading(true);
+  const handleAccount = (form) => {
+    const account = {
+      email: form.get("email"),
+      password: form.get("password"),
+    };
+    console.log(account);
     axios
-      .post("http://localhost:5555/", account)
-      .then(() => {
+      .post("http://localhost:5555/accounts/login", account, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        alert(res.data.message);
         navigate("/");
       })
       .catch((error) => {
-        // setLoading(false);
-        // alert('An error happened. Please Chack console');
-        console.log(error);
+        alert(error.response.data.message);
       });
   };
 
