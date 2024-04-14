@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Home", "My Notes", "About"];
+const pages = ["Home", "Notes", "About"];
 const settings = ["Account", "Dashboard", "Logout"];
 
 export default function NavBar() {
@@ -49,7 +49,6 @@ export default function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/home"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -100,7 +99,12 @@ export default function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  component={Link} // Use Link as a component
+                  to={`/${page.toLowerCase()}`} // Specify the route
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
