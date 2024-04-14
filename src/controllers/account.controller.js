@@ -75,9 +75,11 @@ export const getAccountById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const account = await Account.findById(id);
+    const account = await Account.findById(id).select(
+      "firstName lastName email -_id"
+    );
 
-    return res.status(200).json(account);
+    return res.status(200).json({ account });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });

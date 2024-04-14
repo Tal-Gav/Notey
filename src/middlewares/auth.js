@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 import { Account } from "../models/account.model.js";
 
-const generateAccessToken = (email) => {
-  return jwt.sign({ email }, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
+const generateAccessToken = (id) => {
+  return jwt.sign({ id }, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
 };
 
 const getAccountFromEmail = async (email) => {
@@ -10,10 +11,22 @@ const getAccountFromEmail = async (email) => {
 };
 
 const authenticateAccount = (req, res, next) => {
-  console.log(req.headers.authorization);
+  const token = req.cookies.jwt;
 
-  const token = req.headers["authorization"];
-  console.log("token", token);
+  // check json web token exists & is verified
+  if (token) {
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, decodedToken) => {
+      if (err) {
+        console.log(err.message);
+        res.json("Authentication failed.");
+      } else {
+        req.params.id = decodedToken.id;
+        next();
+      }
+    });
+  } else {
+    res.json("Authentication failed.");
+  }
 };
 
 export { generateAccessToken, getAccountFromEmail, authenticateAccount };
