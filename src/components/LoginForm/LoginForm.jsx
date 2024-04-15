@@ -61,7 +61,7 @@ export default function LoginForm() {
       })
       .then((res) => {
         alert(res.data.message);
-        navigate("/account");
+        navigate("/notes");
       })
       .catch((error) => {
         alert(error.response.data.message);

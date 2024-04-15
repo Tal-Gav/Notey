@@ -1,13 +1,12 @@
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import { getTokenCookie } from "../../utils";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 export default function Account() {
   const navigate = useNavigate();
 
+  const [accountAuth, setAccountAuth] = useState(false);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -27,19 +26,19 @@ export default function Account() {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res);
+        setAccountAuth(true);
         setAccountData(res.data.account);
       })
       .catch((error) => {
-        console.log(error);
-        alert(error);
-        navigate("/login");
+        if (error.response.status === 403) navigate("/no-access");
       });
   };
 
   useEffect(() => {
     getAccountData();
   }, []);
-  return (
+  return accountAuth ? (
     <>
       <Typography component="h1" variant="h3">
         Account
@@ -54,5 +53,5 @@ export default function Account() {
         Last Name: {lastName}
       </Typography>
     </>
-  );
+  ) : null;
 }
