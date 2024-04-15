@@ -18,14 +18,18 @@ const authenticateAccount = (req, res, next) => {
     jwt.verify(token, process.env.TOKEN_SECRET, (err, decodedToken) => {
       if (err) {
         console.log(err.message);
-        res.json("Authentication failed.");
+        res.status(401).send({
+          message: "Authentication failed.",
+        });
       } else {
         req.params.id = decodedToken.id;
         next();
       }
     });
   } else {
-    res.json("Authentication failed.");
+    res.status(403).send({
+      message: "No access.",
+    });
   }
 };
 
