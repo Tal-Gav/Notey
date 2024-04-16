@@ -3,7 +3,6 @@ import { Note } from "../models/note.model.js";
 // Create a new note
 export const createNote = async (req, res) => {
   try {
-    console.log(req.body);
     if (!req.body.title || !req.body.content) {
       return res.status(400).send({
         message: "Send all required fields: title, content.",
@@ -54,14 +53,12 @@ export const getNoteById = async (req, res) => {
 
 // Update an existing note by id
 export const updateNoteById = async (req, res) => {
-  console.log("hello");
   try {
     if (!req.body.title || !req.body.content) {
       return res.status(400).send({
         message: "Send all required fields: id, title, content.",
       });
     }
-    console.log(req);
     const { noteId } = req.params;
     const result = await Note.findByIdAndUpdate(noteId, req.body);
 
@@ -79,17 +76,17 @@ export const updateNoteById = async (req, res) => {
 // Delete an existing note by id
 export const deleteNoteById = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { noteId } = req.params;
 
-    const result = await Note.findByIdAndDelete(id);
+    const result = await Note.findByIdAndDelete(noteId);
 
     if (!result) {
       return res.status(404).json({ message: "Note not found" });
     }
 
-    return res.status(200).send({ message: "Note deleted successfully" });
+    return res.status(200).json({ message: "Note deleted successfully" });
   } catch (error) {
     console.log(error.message);
-    res.status(500).send({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
