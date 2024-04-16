@@ -73,7 +73,7 @@ export const getAccounts = async (req, res) => {
 // Get an existing account by id
 export const getAccountById = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { accountId } = req.params;
 
     const account = await Account.findById(id).select(
       "firstName lastName email -_id"

@@ -22,7 +22,7 @@ const authenticateAccount = (req, res, next) => {
           message: "Authentication failed.",
         });
       } else {
-        req.params.id = decodedToken.id;
+        req.params.accountId = decodedToken.id;
         next();
       }
     });

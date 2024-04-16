@@ -3,6 +3,7 @@ import { Note } from "../models/note.model.js";
 // Create a new note
 export const createNote = async (req, res) => {
   try {
+    console.log(req.body);
     if (!req.body.title || !req.body.content) {
       return res.status(400).send({
         message: "Send all required fields: title, content.",
@@ -15,7 +16,7 @@ export const createNote = async (req, res) => {
 
     const note = await Note.create(newNote);
 
-    return res.status(201).send("Note created successfully. " + note);
+    return res.status(201).json({ message: "Note created." });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
@@ -29,7 +30,7 @@ export const getNotes = async (req, res) => {
 
     return res.status(200).json({
       count: notes.length,
-      data: notes,
+      notes: notes,
     });
   } catch (error) {
     console.log(error.message);
@@ -53,25 +54,25 @@ export const getNoteById = async (req, res) => {
 
 // Update an existing note by id
 export const updateNoteById = async (req, res) => {
+  console.log("hello");
   try {
     if (!req.body.title || !req.body.content) {
       return res.status(400).send({
-        message: "Send all required fields: title, content.",
+        message: "Send all required fields: id, title, content.",
       });
     }
-
-    const { id } = req.params;
-
-    const result = await Note.findByIdAndUpdate(id, req.body);
+    console.log(req);
+    const { noteId } = req.params;
+    const result = await Note.findByIdAndUpdate(noteId, req.body);
 
     if (!result) {
       return res.status(404).json({ message: "Note not found" });
     }
 
-    return res.status(200).send({ message: "Note updated successfully" });
+    return res.status(200).json({ message: "Note updated successfully" });
   } catch (error) {
     console.log(error.message);
-    res.status(500).send({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
