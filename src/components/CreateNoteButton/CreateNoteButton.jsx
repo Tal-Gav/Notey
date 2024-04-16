@@ -2,7 +2,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import IconButton from "@mui/material/IconButton";
-import Note from "../Note/Note";
+import NewNote from "../NewNote/NewNote";
 
 const CreateNote = ({ setNoteEditMode }) => {
   const handleNoteBtnClick = () => {
@@ -42,8 +42,8 @@ const CreateNewNote = () => {
 
   return (
     <>
+      {noteEditMode ? <NewNote /> : null}
       <CreateNote setNoteEditMode={setNoteEditMode} />
-      {noteEditMode ? <Note /> : null}
     </>
   );
 };
