@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
 import NewNote from "../NewNote/NewNote";
 
-const CreateNote = ({ setNoteEditMode }) => {
+const CreateNote = ({ isNoteEditMode, setIsNoteEditMode }) => {
   const handleNoteBtnClick = () => {
-    setNoteEditMode(true);
+    setIsNoteEditMode(!isNoteEditMode);
   };
   return (
     <>
@@ -30,7 +31,11 @@ const CreateNote = ({ setNoteEditMode }) => {
           color="inherit"
           onClick={handleNoteBtnClick}
         >
-          <NoteAddIcon sx={{ fontSize: 100 }} />
+          {isNoteEditMode ? (
+            <ClearIcon sx={{ fontSize: 100 }} />
+          ) : (
+            <NoteAddIcon sx={{ fontSize: 100 }} />
+          )}
         </IconButton>
       </Box>
     </>
@@ -38,12 +43,15 @@ const CreateNote = ({ setNoteEditMode }) => {
 };
 
 const CreateNewNote = () => {
-  const [noteEditMode, setNoteEditMode] = useState(false);
+  const [isNoteEditMode, setIsNoteEditMode] = useState(false);
 
   return (
     <>
-      {noteEditMode ? <NewNote /> : null}
-      <CreateNote setNoteEditMode={setNoteEditMode} />
+      {isNoteEditMode ? <NewNote /> : null}
+      <CreateNote
+        isNoteEditMode={isNoteEditMode}
+        setIsNoteEditMode={setIsNoteEditMode}
+      />
     </>
   );
 };

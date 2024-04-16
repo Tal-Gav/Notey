@@ -16,7 +16,6 @@ export default function MyNotes() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.notes);
         setNotes(res.data.notes);
       })
       .catch((error) => {

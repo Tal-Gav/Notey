@@ -18,7 +18,6 @@ const Note = () => {
       title: form.get("title"),
       content: form.get("content"),
     };
-    console.log(note);
     axios
       .post("http://localhost:5555/notes", note, {
         headers: {
@@ -27,7 +26,6 @@ const Note = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.message);
         alert(res.data.message);
       })
       .catch((error) => {

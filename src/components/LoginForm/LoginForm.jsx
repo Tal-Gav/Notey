@@ -51,7 +51,6 @@ export default function LoginForm() {
       email: form.get("email"),
       password: form.get("password"),
     };
-    console.log(account);
     axios
       .post("http://localhost:5555/accounts/login", account, {
         headers: {

@@ -62,13 +62,11 @@ export default function SignUpForm() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.message);
         alert(res.data.message);
         navigate("/");
       })
       .catch((error) => {
         // setLoading(false);
-        // alert('An error happened. Please Chack console');
         alert(error.response.data.message);
       });
   };

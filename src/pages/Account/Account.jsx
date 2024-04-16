@@ -26,7 +26,6 @@ export default function Account() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         setAccountAuth(true);
         setAccountData(res.data.account);
       })

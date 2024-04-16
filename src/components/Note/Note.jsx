@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import SaveIcon from "@mui/icons-material/Save";
+import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
@@ -15,7 +16,6 @@ const Note = (props) => {
   const [noteContent, setNoteContent] = useState(content ?? "");
 
   const handleSaveNoteBtn = () => {
-    console.log(noteId, noteTitle, noteContent);
     handleNoteUpdate();
   };
 
@@ -33,7 +33,22 @@ const Note = (props) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.message);
+        alert(res.data.message);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
+
+  const handleNoteDelete = () => {
+    axios
+      .delete("http://localhost:5555/notes/" + noteId, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
         alert(res.data.message);
         // navigate("/");
       })
@@ -62,6 +77,16 @@ const Note = (props) => {
             id: #{noteId}
           </Typography>
           <div style={{ position: "absolute", top: 0, right: 0 }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleNoteDelete}
+            >
+              <DeleteIcon fontSize="large" />
+            </IconButton>
             <IconButton
               size="large"
               aria-label="account of current user"
