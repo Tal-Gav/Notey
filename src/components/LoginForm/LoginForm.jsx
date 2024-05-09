@@ -12,6 +12,8 @@ import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import { showSwal } from "../Alert/Alert";
+
 export default function LoginForm() {
   const navigate = useNavigate();
 
@@ -37,11 +39,10 @@ export default function LoginForm() {
         withCredentials: true,
       })
       .then((res) => {
-        alert(res.data.message);
         navigate("/notes");
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        showSwal(error.response.data.message);
       });
   };
 
