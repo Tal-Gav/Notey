@@ -1,4 +1,4 @@
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +30,11 @@ export default function Account() {
         setAccountData(res.data.account);
       })
       .catch((error) => {
-        if (error.response.status === 403) navigate("/no-access");
+        try {
+          if (error.response.status === 403) navigate("/no-access");
+        } catch {
+          alert(error);
+        }
       });
   };
 

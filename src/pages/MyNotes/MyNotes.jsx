@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import Grid from "@material-ui/core/Grid";
+import { useNavigate } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 
 import CreateNoteButton from "../../components/CreateNoteButton/CreateNoteButton";
 import Note from "../../components/Note/Note";
 import axios from "axios";
 
 export default function MyNotes() {
+  const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
+
   const getNotes = () => {
     axios
       .get("http://localhost:5555/notes", {
@@ -19,7 +22,11 @@ export default function MyNotes() {
         setNotes(res.data.notes);
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        try {
+          if (error.response.status === 403) navigate("/no-access");
+        } catch {
+          alert(error);
+        }
       });
   };
 
