@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import axios from "axios";
 
 const Note = (props) => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 import CreateNoteButton from "../../components/CreateNoteButton/CreateNoteButton";
 import Note from "../../components/Note/Note";
