@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -9,14 +11,11 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 export default function LoginForm() {
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const signInAuth = useSignIn();
 
   const submittedForm = (event) => {
     event.preventDefault();
@@ -25,6 +24,8 @@ export default function LoginForm() {
   };
 
   const handleAccount = (form) => {
+    const email = form.get("email");
+
     const account = {
       email: form.get("email"),
       password: form.get("password"),
@@ -37,8 +38,18 @@ export default function LoginForm() {
         withCredentials: true,
       })
       .then((res) => {
-        alert(res.data.message);
-        navigate("/notes");
+        console.log(res);
+        if (
+          signInAuth({
+            auth: {
+              token: res.data.token,
+              type: "Bearer",
+            },
+            userState: { email },
+          })
+        ) {
+          navigate("/notes");
+        }
       })
       .catch((error) => {
         alert(error.response.data.message);

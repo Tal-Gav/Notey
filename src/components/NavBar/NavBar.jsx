@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
 
 const pages = ["Home", "Notes", "About"];
 const settings = ["Account", "Dashboard", "Logout"];
@@ -21,6 +22,7 @@ export default function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
+  const signOut = useSignOut();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,7 +40,13 @@ export default function NavBar() {
   };
 
   const handleUserMenuClick = (setting) => {
-    navigate(`${setting}`);
+    console.log(typeof setting);
+    if (setting === "Logout") {
+      signOut();
+      navigate("/home");
+    } else {
+      navigate(`${setting}`);
+    }
   };
 
   return (
