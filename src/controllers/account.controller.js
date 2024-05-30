@@ -26,9 +26,11 @@ export const signupAccount = async (req, res) => {
     const account = await Account.create(newAccount);
     const token = generateAccessToken(account._id);
 
-    return res
-      .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
-      .json({ message: "Account created." });
+    return (
+      res
+        // .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
+        .json({ message: "Account created.", token })
+    );
   } catch (error) {
     console.log(error.message);
 
@@ -46,9 +48,11 @@ export const loginAccount = async (req, res) => {
     console.log(email, password);
     const account = await Account.login(email, password);
     const token = generateAccessToken(account._id);
-    return res
-      .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
-      .json({ message: "Account logged in." });
+    return (
+      res
+        // .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
+        .json({ message: "Account logged in.", token })
+    );
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
@@ -75,7 +79,7 @@ export const getAccountById = async (req, res) => {
   try {
     const { accountId } = req.params;
 
-    const account = await Account.findById(id).select(
+    const account = await Account.findById(accountId).select(
       "firstName lastName email -_id"
     );
 

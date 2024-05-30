@@ -11,7 +11,7 @@ const getAccountFromEmail = async (email) => {
 };
 
 const authenticateAccount = (req, res, next) => {
-  const token = req.cookies.jwt;
+  const token = req.cookies._auth;
 
   // check json web token exists & is verified
   if (token) {
