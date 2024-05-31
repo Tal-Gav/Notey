@@ -12,6 +12,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
+import whiteBackground from "../../assets/white.jpg";
+import noteyLogo from "../../assets/notey-purple.png";
+import { Divider } from "@mui/material";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -57,54 +60,152 @@ export default function LoginForm() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <form noValidate onSubmit={submittedForm}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-          </Grid>
-          <Button type="submit" fullWidth variant="contained" color="primary">
-            Login
-          </Button>
-          <Grid container sx={{ alignItems: "flex-end" }}>
-            <Grid item>
-              <Link href="/signup" variant="body2">
-                Don't have an account yet? Sign up
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}></Box>
-    </Container>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        className="white-background"
+        style={{ backgroundImage: `url(${whiteBackground})` }}
+      />
+
+      <Box
+        sx={{
+          marginTop: "2vh",
+          display: "flex",
+          width: "25vw",
+          height: "80vh",
+          borderRadius: "2em",
+          boxShadow: "0px 0px 20px 0px #5730bfb3",
+          bgcolor: "white",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          p={6}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <img
+            className="notey-logo black-shadowed"
+            src={noteyLogo}
+            alt="Logo"
+            draggable="false"
+            style={{ width: "17vw" }}
+          />
+          <Box pt={2} />
+          <Divider width={"120"} color={"#A1A1A1"} sx={{ opacity: "0.5" }} />
+        </Box>
+
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Typography
+            component="h1"
+            variant="h6"
+            fontSize={"1em"}
+            color={"#A1A1A1"}
+          >
+            Log in to your Notey account
+          </Typography>
+          <Box p={0.5} />
+          <form noValidate onSubmit={submittedForm}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              InputProps={{
+                style: {
+                  borderRadius: "1em",
+                },
+              }}
+              sx={{
+                "& label.Mui-focused": {
+                  color: "#6F00FF",
+                },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#6F00FF",
+                  },
+                },
+              }}
+            />
+            <Box p={0.5} />
+            <TextField
+              variant="outlined"
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              InputProps={{
+                style: {
+                  borderRadius: "1em",
+                },
+              }}
+              sx={{
+                "& label.Mui-focused": {
+                  color: "#6F00FF",
+                },
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#6F00FF",
+                  },
+                },
+              }}
+            />
+
+            <Box p={1} />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{
+                width: "10vw",
+                borderRadius: "2em",
+                background:
+                  "radial-gradient(50% 50% at 50% 50%, #6037d0 50%, #6037d0 100%)",
+              }}
+            >
+              Log in
+            </Button>
+            <Box p={1} />
+
+            <Box
+              sx={{
+                display: "flex",
+                paddingRight: "20",
+                flexDirection: "row",
+              }}
+            >
+              <Typography color={"#A1A1A1"}>
+                Don't have an account yet?
+              </Typography>
+              <Typography
+                onClick={() => navigate("/signup")}
+                sx={{ cursor: "pointer" }}
+                pl={1}
+                color={"#6F00FF"}
+              >
+                Sign up
+              </Typography>
+            </Box>
+          </form>
+          <Box mt={5}></Box>
+        </Container>
+      </Box>
+    </Box>
   );
 }

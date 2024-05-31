@@ -3,6 +3,9 @@ import { Tilt } from "react-tilt";
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import whiteBackground from "../../assets/white.jpg";
+import noteyLogo from "../../assets/notey-clean.png";
+import { Box } from "@mui/material";
 
 const defaultOptions = {
   reverse: false, // reverse the tilt direction
@@ -17,11 +20,10 @@ const defaultOptions = {
 };
 
 export default function HomePage() {
-  const whiteBackground = "./images/white.jpg";
-  const noteyLogo = "./images/notey.png";
-
   return (
-    <div>
+    <Box
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
       <div
         className="white-background"
         style={{ backgroundImage: `url(${whiteBackground})` }}
@@ -75,6 +77,6 @@ export default function HomePage() {
           </Grid>
         </Grid>
       </div>
-    </div>
+    </Box>
   );
 }

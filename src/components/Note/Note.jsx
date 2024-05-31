@@ -8,12 +8,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { updateNote, deleteNote } from "../../store/actions";
 
 const Note = (props) => {
   const { id, title, content } = props;
   const [noteId, setNoteId] = useState(id ?? "");
   const [noteTitle, setNoteTitle] = useState(title ?? "");
   const [noteContent, setNoteContent] = useState(content ?? "");
+  const dispatch = useDispatch();
 
   const handleSaveNoteBtn = () => {
     handleNoteUpdate();
@@ -33,6 +36,7 @@ const Note = (props) => {
         withCredentials: true,
       })
       .then((res) => {
+        dispatch(updateNote(updateNote));
         alert(res.data.message);
       })
       .catch((error) => {
@@ -49,6 +53,7 @@ const Note = (props) => {
         withCredentials: true,
       })
       .then((res) => {
+        dispatch(deleteNote(noteId));
         alert(res.data.message);
         // navigate("/");
       })

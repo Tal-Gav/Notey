@@ -19,8 +19,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #06a699 200%),
-    linear-gradient(180deg, #031d44 0%, rgba(3, 29, 68, 0.29) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #8907bef2 200%),
+    linear-gradient(180deg, #150886f2 0%, rgba(3, 29, 68, 0.29) 100%);
   animation: gradient 5s ease infinite;
 }
 .container {
@@ -54,8 +54,8 @@
   width: 12rem;
   height: 4.5rem;
   border-radius: 1.5rem;
-  background: radial-gradient(50% 50% at 50% 50%, #059f93 0%, #09b0a3 100%);
-  box-shadow: 0px 0px 20px 0px #06a699;
+  background: radial-gradient(50% 50% at 50% 50%, #6037d099 0%, #5630bfc0 100%);
+  box-shadow: 0px 0px 20px 0px #5730bf;
   cursor: pointer;
 }
 
@@ -64,11 +64,11 @@
   width: 11.5rem; /* Adjust the width as needed */
   height: 4rem; /* Set height equal to line-height */
   border-radius: 1.5rem; /* Adjust the border-radius as needed */
-  border: 0.2rem solid #b8faf5;
+  border: 0.2rem solid #ffffff;
   /* border: 0.5vh solid #b8faf5; */
   background-color: transparent; /* Add this to ensure the shadow is visible */
-  box-shadow: 0px 0px 12px 0px #ddfefb,
-    /* Outer shadow */ inset 0px 0px 12px 0px #ddfefb; /* Inner shadow */
+  box-shadow: 0px 0px 12px 0px #edddfe,
+    /* Outer shadow */ inset 0px 0px 12px 0px #ebddfe; /* Inner shadow */
   cursor: pointer;
 }
 
@@ -95,7 +95,7 @@
 
 .typewriter {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: 0.15em solid #06a699; /* The typwriter cursor */
+  border-right: 0.15em solid #5730bf; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: 0.15em; /* Adjust as needed */
@@ -113,7 +113,10 @@
 }
 
 .shadowed {
-  filter: drop-shadow(5px 5px 8px #132d2b60);
+  filter: drop-shadow(5px 5px 8px #a7a7a795);
+}
+.black-shadowed {
+  filter: drop-shadow(5px 5px 8px #4646467f);
 }
 
 /* The typewriter cursor effect */
@@ -123,7 +126,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: #06a699;
+    border-color: #5730bf;
   }
 }
 
