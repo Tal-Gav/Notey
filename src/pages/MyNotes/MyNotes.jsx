@@ -5,9 +5,13 @@ import CreateNoteButton from "../../components/CreateNoteButton/CreateNoteButton
 import Note from "../../components/Note/Note";
 import axios from "axios";
 import { setFetchedNotes } from "../../store/actions";
+import Notey from "../../components/Notey";
+import { Box, Container } from "@mui/material";
 
 export default function MyNotes() {
   const notes = useSelector((state) => state.notes.notes);
+  const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
+
   const dispatch = useDispatch();
 
   const getNotes = () => {
@@ -33,13 +37,27 @@ export default function MyNotes() {
     getNotes();
   }, []);
   return (
-    <Grid container spacing={2} direction="row">
-      {notes.map((note, index) => (
-        <Grid item key={index}>
-          <Note id={note._id} title={note.title} content={note.content} />
-        </Grid>
-      ))}
-      <CreateNoteButton />
-    </Grid>
+    <>
+      <Grid container direction="row">
+        {notes &&
+          notes.map((note, index) => (
+            <Grid item key={index}>
+              <Note id={note._id} title={note.title} content={note.content} />
+            </Grid>
+          ))}
+      </Grid>
+
+      <Container
+        component="main"
+        sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+      >
+        {isCreateNoteMode && (
+          <>
+            <Notey />
+          </>
+        )}
+        <CreateNoteButton />
+      </Container>
+    </>
   );
 }

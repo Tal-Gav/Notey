@@ -1,59 +1,99 @@
-import { useState } from "react";
-import Box from "@mui/material/Box";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import ClearIcon from "@mui/icons-material/Clear";
-import IconButton from "@mui/material/IconButton";
-import NewNote from "../NewNote/NewNote";
+import { Box, IconButton } from "@mui/material";
+import createNoteIcon from "../../assets/create-note.svg";
+import discardNoteIcon from "../../assets/x.svg";
+import saveNoteIcon from "../../assets/v.svg";
+import { setIsCreateNoteMode } from "../../store/isCreateNoteModeSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const CreateNote = ({ isNoteEditMode, setIsNoteEditMode }) => {
-  const handleNoteBtnClick = () => {
-    setIsNoteEditMode(!isNoteEditMode);
-  };
+const CreateNoteButton = () => {
+  const dispatch = useDispatch();
+  const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
+
+  // const handleSaveNoteBtn = (event) => {
+  //   event.preventDefault();
+  //   const form = new FormData(event.target);
+  //   handleNote(form);
+  // };
+
+  // const handleNote = (form) => {
+  //   const note = {
+  //     title: form.get("title"),
+  //     content: form.get("content"),
+  //   };
+  //   axios
+  //     .post("http://localhost:5555/notes", note, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       alert(res.data.message);
+  //     })
+  //     .catch((error) => {
+  //       alert(error.response.data.message);
+  //     });
+  // };
+
   return (
-    <>
-      <Box
-        height={200}
-        width={200}
-        my={4}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        textAlign="center"
-        gap={4}
-        p={2}
-        sx={{ border: "2px dashed grey", flexDirection: "row" }}
-      >
+    <Box>
+      {isCreateNoteMode ? (
+        <Box display={"flex"} flexDirection={"column"}>
+          <IconButton
+            form="note"
+            type="submit"
+            onClick={(event) => {
+              event.preventDefault();
+              // const form = new FormData(event.target);
+              console.log(event.target);
+              dispatch(setIsCreateNoteMode(!isCreateNoteMode));
+            }}
+          >
+            <img
+              src={saveNoteIcon}
+              style={{
+                width: "3vw",
+                filter:
+                  "invert(10%) sepia(100%) saturate(5422%) hue-rotate(267deg) brightness(108%) contrast(128%)",
+              }}
+              alt="Save Note"
+            />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              dispatch(setIsCreateNoteMode(!isCreateNoteMode));
+            }}
+          >
+            <img
+              src={discardNoteIcon}
+              style={{
+                width: "4vw",
+                filter:
+                  "invert(10%) sepia(100%) saturate(5422%) hue-rotate(267deg) brightness(108%) contrast(128%)",
+              }}
+              alt="Discard Note"
+            />
+          </IconButton>
+        </Box>
+      ) : (
         <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          color="inherit"
-          onClick={handleNoteBtnClick}
+          onClick={() => {
+            dispatch(setIsCreateNoteMode(!isCreateNoteMode));
+          }}
         >
-          {isNoteEditMode ? (
-            <ClearIcon sx={{ fontSize: 100 }} />
-          ) : (
-            <NoteAddIcon sx={{ fontSize: 100 }} />
-          )}
+          <img
+            src={createNoteIcon}
+            style={{
+              width: "4vw",
+              filter:
+                "invert(10%) sepia(100%) saturate(5422%) hue-rotate(267deg) brightness(108%) contrast(128%)",
+            }}
+            alt="Create Note"
+          />
         </IconButton>
-      </Box>
-    </>
+      )}
+    </Box>
   );
 };
 
-const CreateNewNote = () => {
-  const [isNoteEditMode, setIsNoteEditMode] = useState(false);
-
-  return (
-    <>
-      {isNoteEditMode ? <NewNote /> : null}
-      <CreateNote
-        isNoteEditMode={isNoteEditMode}
-        setIsNoteEditMode={setIsNoteEditMode}
-      />
-    </>
-  );
-};
-
-export default CreateNewNote;
+export default CreateNoteButton;
