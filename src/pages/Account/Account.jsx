@@ -30,11 +30,7 @@ export default function Account() {
         setAccountData(res.data.account);
       })
       .catch((error) => {
-        try {
-          if (error.response.status === 403) navigate("/no-access");
-        } catch {
-          alert(error);
-        }
+        if (error.response.status === 403) navigate("/no-access");
       });
   };
 

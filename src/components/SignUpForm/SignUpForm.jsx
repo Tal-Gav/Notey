@@ -1,42 +1,22 @@
-import React, { useState } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import React, { useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
+import whiteBackground from "../../assets/white.jpg";
+import noteyLogo from "../../assets/notey-purple.png";
+import { Divider } from "@mui/material";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
-export default function SignUpForm() {
-  const classes = useStyles();
+export default function LoginForm() {
   const navigate = useNavigate();
   const signInAuth = useSignIn();
 
@@ -54,6 +34,7 @@ export default function SignUpForm() {
       password: form.get("password"),
     };
 
+    // setLoading(true);
     axios
       .post("http://localhost:5555/accounts/signup", account, {
         headers: {
@@ -62,92 +43,215 @@ export default function SignUpForm() {
         withCredentials: true,
       })
       .then((res) => {
-        navigate("/welcome");
+        alert(res.data.message);
+        navigate("/");
       })
       .catch((error) => {
-        // setLoading(false);
         alert(error.response.data.message);
       });
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={submittedForm}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        className="white-background"
+        style={{ backgroundImage: `url(${whiteBackground})` }}
+      />
+
+      <Box
+        sx={{
+          marginTop: "2vh",
+          display: "flex",
+          width: "25vw",
+          height: "80vh",
+          borderRadius: "2em",
+          boxShadow: "0px 0px 20px 0px #5730bfb3",
+          bgcolor: "white",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          p={6}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <img
+            className="notey-logo black-shadowed"
+            src={noteyLogo}
+            alt="Logo"
+            draggable="false"
+            style={{ width: "17vw" }}
+          />
+          <Box pt={2} />
+          <Divider width={"120"} color={"#A1A1A1"} sx={{ opacity: "0.5" }} />
+        </Box>
+
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Typography
+            component="h1"
+            variant="h6"
+            fontSize={"1em"}
+            color={"#A1A1A1"}
           >
-            Sign Up
-          </Button>
-          <Grid container sx={{ alignItems: "flex-end" }}>
-            <Grid item>
-              <Link href="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
+            Create new Notey account
+          </Typography>
+          <Box p={0.5} />
+          <form noValidate onSubmit={submittedForm}>
+            <Grid container spacing={1.2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  InputProps={{
+                    style: {
+                      borderRadius: "1em",
+                    },
+                  }}
+                  sx={{
+                    "& label.Mui-focused": {
+                      color: "#6F00FF",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#6F00FF",
+                      },
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                  InputProps={{
+                    style: {
+                      borderRadius: "1em",
+                    },
+                  }}
+                  sx={{
+                    "& label.Mui-focused": {
+                      color: "#6F00FF",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#6F00FF",
+                      },
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  InputProps={{
+                    style: {
+                      borderRadius: "1em",
+                    },
+                  }}
+                  sx={{
+                    "& label.Mui-focused": {
+                      color: "#6F00FF",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#6F00FF",
+                      },
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  InputProps={{
+                    style: {
+                      borderRadius: "1em",
+                    },
+                  }}
+                  sx={{
+                    "& label.Mui-focused": {
+                      color: "#6F00FF",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#6F00FF",
+                      },
+                    },
+                  }}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}></Box>
-    </Container>
+            <Box p={1} />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{
+                width: "10vw",
+                borderRadius: "2em",
+                background:
+                  "radial-gradient(50% 50% at 50% 50%, #6037d0 50%, #6037d0 100%)",
+              }}
+            >
+              Sign Up
+            </Button>
+            <Box p={1} />
+            <Box
+              sx={{
+                display: "flex",
+                paddingRight: "20",
+                flexDirection: "row",
+              }}
+            >
+              <Typography color={"#A1A1A1"}>
+                Already have an account?
+              </Typography>
+              <Typography
+                onClick={() => navigate("/login")}
+                sx={{ cursor: "pointer" }}
+                pl={1}
+                color={"#6F00FF"}
+              >
+                Sign in
+              </Typography>
+            </Box>
+          </form>
+          <Box mt={5}></Box>
+        </Container>
+      </Box>
+    </Box>
   );
 }

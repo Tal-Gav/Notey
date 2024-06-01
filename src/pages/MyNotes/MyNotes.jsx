@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Grid from "@material-ui/core/Grid";
-
+import Grid from "@mui/material/Grid";
+import { useSelector, useDispatch } from "react-redux";
 import CreateNoteButton from "../../components/CreateNoteButton/CreateNoteButton";
 import Note from "../../components/Note/Note";
 import axios from "axios";
@@ -9,7 +9,11 @@ import Notey from "../../components/Notey";
 import { Box, Container } from "@mui/material";
 
 export default function MyNotes() {
+  // const notes = useSelector((state) => state.notes.notes);
+  const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
   const [notes, setNotes] = useState([]);
+  const dispatch = useDispatch();
+
   const getNotes = () => {
     axios
       .get("http://localhost:5555/notes", {
@@ -22,6 +26,7 @@ export default function MyNotes() {
         setNotes(res.data.notes);
       })
       .catch((error) => {
+        console.log(error);
         alert(error.response.data.message);
       });
   };
