@@ -99,6 +99,7 @@ export const updateAccount = async (req, res) => {
     }
 
     const { id } = req.params;
+
     const result = await Account.findByIdAndUpdate(id, req.body);
 
     if (!result) {
