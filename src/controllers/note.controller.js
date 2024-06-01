@@ -54,24 +54,35 @@ export const getNoteById = async (req, res) => {
 // Update an existing note by id
 export const updateNoteById = async (req, res) => {
   try {
+    console.log("here 1");
+
     if (!req.body.title || !req.body.content) {
-      return res.status(400).send({
+      console.log(req.body);
+      console.log("here 2");
+      return res.status(400).json({
         message: "Send all required fields: id, title, content.",
       });
     }
     const { noteId } = req.params;
     const result = await Note.findByIdAndUpdate(noteId, req.body);
+    console.log("here 3");
 
     if (!result) {
+      console.log("here 4");
+
       return res.status(404).json({ message: "Note not found" });
     }
+    console.log(result);
+    console.log("here 5");
 
     return res.status(200).json({ message: "Note updated successfully" });
   } catch (error) {
+    console.log("here 6");
+
     console.log(error.message);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
-};
+};  
 
 // Delete an existing note by id
 export const deleteNoteById = async (req, res) => {

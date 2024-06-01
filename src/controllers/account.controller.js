@@ -29,7 +29,7 @@ export const signupAccount = async (req, res) => {
     return (
       res
         // .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
-        .json({ message: "Account created.", token })
+        .json({ message: "Account created." })
     );
   } catch (error) {
     console.log(error.message);
