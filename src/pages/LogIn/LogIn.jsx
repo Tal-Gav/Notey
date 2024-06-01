@@ -1,20 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import React, { useState } from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-purple.png";
 import { Divider } from "@mui/material";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -51,11 +47,12 @@ const Login = () => {
             userState: { email },
           })
         ) {
+          toast.success(res.data.message);
           navigate("/notes");
         }
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   };
 

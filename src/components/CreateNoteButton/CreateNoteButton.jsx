@@ -5,38 +5,13 @@ import saveNoteIcon from "../../assets/v.svg";
 import { setIsCreateNoteMode } from "../../store/isCreateNoteModeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const CreateNoteButton = () => {
   const dispatch = useDispatch();
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
   const newNoteTitle = useSelector((state) => state.newNote.title);
   const newNoteContent = useSelector((state) => state.newNote.content);
-
-  // const handleSaveNoteBtn = (event) => {
-  //   event.preventDefault();
-  //   const form = new FormData(event.target);
-  //   handleNote(form);
-  // };
-
-  // const handleNote = (form) => {
-  //   const note = {
-  //     title: form.get("title"),
-  //     content: form.get("content"),
-  //   };
-  //   axios
-  //     .post("http://localhost:5555/notes", note, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       alert(res.data.message);
-  //     })
-  //     .catch((error) => {
-  //       alert(error.response.data.message);
-  //     });
-  // };
 
   const handleSaveNote = () => {
     dispatch(setIsCreateNoteMode(!isCreateNoteMode));
@@ -52,10 +27,10 @@ const CreateNoteButton = () => {
         }
       )
       .then((res) => {
-        alert(res.data.message);
+        toast.success(res.data.message);
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   };
   return (

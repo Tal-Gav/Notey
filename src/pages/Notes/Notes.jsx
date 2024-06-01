@@ -24,7 +24,7 @@ const Notes = () => {
         setNotes(res.data.notes);
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   };
 

@@ -8,8 +8,9 @@ import {
 import { Tooltip } from "react-tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Note = ({ note }) => {
   console.log(note);
@@ -24,9 +25,7 @@ const Note = ({ note }) => {
       title: noteTitle,
       content: noteContent,
     };
-    console.log(updatedNote);
 
-    console.log("noteTitle", noteTitle);
     axios
       .put("http://localhost:5555/notes/" + noteId, updatedNote, {
         headers: {
@@ -35,11 +34,10 @@ const Note = ({ note }) => {
         withCredentials: true,
       })
       .then((res) => {
-        // dispatch(updateNote(res.data.note));
-        alert(res.data.message);
+        toast.success(res.data.message);
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   };
 
@@ -53,11 +51,11 @@ const Note = ({ note }) => {
       })
       .then((res) => {
         // dispatch(deleteNote(noteId));
-        alert(res.data.message);
+        toast.success(res.data.message);
         // navigate("/");
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   };
 

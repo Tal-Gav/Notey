@@ -7,11 +7,26 @@ import "./fonts/TT-Fors-Regular.ttf";
 import "./fonts/EncodeSansSemiCondensed-ExtraLight.ttf";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <App />
+    <ToastContainer
+      position="bottom-left"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Bounce}
+    />
   </Provider>
 );
 

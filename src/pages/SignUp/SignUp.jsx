@@ -15,6 +15,7 @@ import useSignIn from "react-auth-kit/hooks/useSignIn";
 import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-purple.png";
 import { Divider } from "@mui/material";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Signup = () => {
         withCredentials: true,
       })
       .then((res) => {
-        alert(res.data.message);
+        toast.success(res.data.message);
         if (
           signInAuth({
             auth: {
@@ -59,7 +60,7 @@ const Signup = () => {
         }
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   };
 

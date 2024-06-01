@@ -1,18 +1,43 @@
-import { Box, Divider, TextField } from "@mui/material";
+import { Box, Divider, TextField, IconButton, Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
+import { toast } from "react-toastify";
 
 export default function Account() {
   const navigate = useNavigate();
 
-  const [accountAuth, setAccountAuth] = useState(false);
+  const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
+  const handleAccountUpdate = () => {
+    const newAccountInfo = {
+      firstName,
+      lastName,
+      email,
+    };
+    axios
+      .put("http://localhost:5555/accounts/" + id, newAccountInfo, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        toast.success(res.data.message);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
+  };
+
   const setAccountData = (account) => {
+    console.log(account);
+    setId(account._id);
     setEmail(account.email);
     setFirstName(account.firstName);
     setLastName(account.lastName);
@@ -27,7 +52,6 @@ export default function Account() {
         withCredentials: true,
       })
       .then((res) => {
-        setAccountAuth(true);
         setAccountData(res.data.account);
       })
       .catch((error) => {
@@ -38,7 +62,7 @@ export default function Account() {
   useEffect(() => {
     getAccountData();
   }, []);
-  return accountAuth ? (
+  return (
     <Box
       p={6}
       sx={{
@@ -58,7 +82,8 @@ export default function Account() {
         variant="outlined"
         id="email"
         label="Email Address"
-        defaultValue={email}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         name="email"
         autoComplete="email"
         InputProps={{
@@ -77,12 +102,62 @@ export default function Account() {
           },
         }}
       />
-      <Typography component="h1" variant="h5">
-        First Name: {firstName}
-      </Typography>
-      <Typography component="h1" variant="h5">
-        Last Name: {lastName}
-      </Typography>
+      <Box pt={1.2} />
+      <TextField
+        variant="outlined"
+        id="firstName"
+        label="First Name"
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+        name="firstName"
+        InputProps={{
+          style: {
+            borderRadius: "1em",
+          },
+        }}
+        sx={{
+          "& label.Mui-focused": {
+            color: "#6F00FF",
+          },
+          "& .MuiOutlinedInput-root": {
+            "&.Mui-focused fieldset": {
+              borderColor: "#6F00FF",
+            },
+          },
+        }}
+      />
+      <Box pt={1.2} />
+      <TextField
+        variant="outlined"
+        id="lastName"
+        label="Last Name"
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+        name="lastName"
+        InputProps={{
+          style: {
+            borderRadius: "1em",
+          },
+        }}
+        sx={{
+          "& label.Mui-focused": {
+            color: "#6F00FF",
+          },
+          "& .MuiOutlinedInput-root": {
+            "&.Mui-focused fieldset": {
+              borderColor: "#6F00FF",
+            },
+          },
+        }}
+      />
+      <Box pt={1.2} />
+      <Button
+        variant="contained"
+        onClick={handleAccountUpdate}
+        sx={{ backgroundColor: "#6516cc" }}
+      >
+        update <SaveRoundedIcon sx={{ color: "white" }} />
+      </Button>
     </Box>
-  ) : null;
+  );
 }
