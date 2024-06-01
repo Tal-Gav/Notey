@@ -5,20 +5,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { setNoteContent, setNoteTitle } from "../store/noteSlice";
 import { Tooltip } from "react-tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { updateNote } from "../store/actions";
 
-const Notey = (props) => {
-  const { id, title, content } = props;
-  const [noteId, setNoteId] = useState(id ?? "");
-  const [noteTitle, setNoteTitle] = useState(title ?? "");
-  const [noteContent, setNoteContent] = useState(content ?? "");
+const Note = ({ note }) => {
+  console.log(note);
+  const [noteId, setNoteId] = useState(note && note._id);
+  const [noteTitle, setNoteTitle] = useState(note && note.title);
+  const [noteContent, setNoteContent] = useState(note && note.content);
+  console.log("noteTitle", noteTitle);
 
   // TODO: Fix the update
   const handleNoteUpdate = () => {
@@ -26,8 +24,9 @@ const Notey = (props) => {
       title: noteTitle,
       content: noteContent,
     };
+    console.log(updatedNote);
 
-    console.log(noteId, updatedNote);
+    console.log("noteTitle", noteTitle);
     axios
       .put("http://localhost:5555/notes/" + noteId, updatedNote, {
         headers: {
@@ -76,14 +75,16 @@ const Notey = (props) => {
           flexDirection: "column",
           alignItems: "center",
         }}
-        data-tooltip-id={"my-tooltip"}
+        data-tooltip-id={`${noteId}-tooltip`}
         data-tooltip-place="bottom"
       >
         <Box pt={2} />
         <Container component="main" maxWidth="xs">
-          <Typography fontSize={"0.8em"} color={"#A1A1A1"}>
-            id: {noteId}
-          </Typography>
+          {note && (
+            <Typography fontSize={"0.8em"} color={"#A1A1A1"}>
+              id: {noteId}
+            </Typography>
+          )}
           <Box pt={1.2} />
           <TextField
             onChange={(e) => setNoteTitle(e.target.value)}
@@ -134,16 +135,18 @@ const Notey = (props) => {
           />
         </Container>
       </Box>
-      <Tooltip id="my-tooltip" clickable>
-        <IconButton onClick={handleNoteDelete}>
-          <DeleteIcon sx={{ color: "white" }} />
-        </IconButton>
-        <IconButton onClick={handleNoteUpdate}>
-          <SaveRoundedIcon sx={{ color: "white" }} />
-        </IconButton>
-      </Tooltip>
+      {note && (
+        <Tooltip id={`${noteId}-tooltip`} clickable>
+          <IconButton onClick={handleNoteDelete}>
+            <DeleteIcon sx={{ color: "white" }} />
+          </IconButton>
+          <IconButton onClick={handleNoteUpdate}>
+            <SaveRoundedIcon sx={{ color: "white" }} />
+          </IconButton>
+        </Tooltip>
+      )}
     </>
   );
 };
 
-export default Notey;
+export default Note;

@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import notesReducer from "./notesSlice";
 import isCreateNoteModeReducer from "./isCreateNoteModeSlice";
-import noteReducer from "./noteSlice";
+import newNoteReducer from "./newNoteSlice";
 
 export const store = configureStore({
   reducer: {
-    notes: notesReducer,
     isCreateNoteMode: isCreateNoteModeReducer,
-    note: noteReducer,
+    newNote: newNoteReducer,
   },
 });

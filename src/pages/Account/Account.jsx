@@ -1,3 +1,4 @@
+import { Box, Divider, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -38,19 +39,50 @@ export default function Account() {
     getAccountData();
   }, []);
   return accountAuth ? (
-    <>
+    <Box
+      p={6}
+      sx={{
+        borderRadius: "2em",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Box pt={2} />
       <Typography component="h1" variant="h3">
         Account
       </Typography>
-      <Typography component="h1" variant="h5">
-        Email: {email}
-      </Typography>
+      <Divider width={"120"} color={"#A1A1A1"} sx={{ opacity: "0.5" }} />
+      <Box pt={2} />
+      <TextField
+        variant="outlined"
+        id="email"
+        label="Email Address"
+        defaultValue={email}
+        name="email"
+        autoComplete="email"
+        InputProps={{
+          style: {
+            borderRadius: "1em",
+          },
+        }}
+        sx={{
+          "& label.Mui-focused": {
+            color: "#6F00FF",
+          },
+          "& .MuiOutlinedInput-root": {
+            "&.Mui-focused fieldset": {
+              borderColor: "#6F00FF",
+            },
+          },
+        }}
+      />
       <Typography component="h1" variant="h5">
         First Name: {firstName}
       </Typography>
       <Typography component="h1" variant="h5">
         Last Name: {lastName}
       </Typography>
-    </>
+    </Box>
   ) : null;
 }

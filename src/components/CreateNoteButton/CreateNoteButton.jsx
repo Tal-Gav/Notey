@@ -9,8 +9,8 @@ import axios from "axios";
 const CreateNoteButton = () => {
   const dispatch = useDispatch();
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
-  const noteTitle = useSelector((state) => state.note.title);
-  const noteContent = useSelector((state) => state.note.content);
+  const newNoteTitle = useSelector((state) => state.newNote.title);
+  const newNoteContent = useSelector((state) => state.newNote.content);
 
   // const handleSaveNoteBtn = (event) => {
   //   event.preventDefault();
@@ -43,7 +43,7 @@ const CreateNoteButton = () => {
     axios
       .post(
         "http://localhost:5555/notes",
-        { title: noteTitle, content: noteContent },
+        { title: newNoteTitle, content: newNoteContent },
         {
           headers: {
             "Content-Type": "application/json",
