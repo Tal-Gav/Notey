@@ -9,9 +9,9 @@ import Notey from "../../components/Notey";
 import { Box, Container } from "@mui/material";
 
 export default function MyNotes() {
-  const notes = useSelector((state) => state.notes.notes);
+  // const notes = useSelector((state) => state.notes.notes);
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
-
+  const [notes, setNotes] = useState([]);
   const dispatch = useDispatch();
 
   const getNotes = () => {
@@ -23,9 +23,7 @@ export default function MyNotes() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data.notes);
-        dispatch(setFetchedNotes(res.data.notes));
+        setNotes(res.data.notes);
       })
       .catch((error) => {
         console.log(error);
@@ -38,19 +36,24 @@ export default function MyNotes() {
   }, []);
   return (
     <>
-      <Grid container direction="row">
-        {notes &&
-          notes.map((note, index) => (
-            <Grid item key={index}>
-              <Note id={note._id} title={note.title} content={note.content} />
-            </Grid>
-          ))}
-      </Grid>
-
       <Container
         component="main"
         sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
       >
+        <Grid container spacing={2} direction="row">
+          {notes.map((note, index) => {
+            return (
+              <Grid item key={note._id}>
+                <Notey
+                  title={note.title}
+                  content={note.content}
+                  id={note._id}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+
         {isCreateNoteMode && (
           <>
             <Notey />

@@ -4,10 +4,13 @@ import discardNoteIcon from "../../assets/x.svg";
 import saveNoteIcon from "../../assets/v.svg";
 import { setIsCreateNoteMode } from "../../store/isCreateNoteModeSlice";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const CreateNoteButton = () => {
   const dispatch = useDispatch();
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
+  const noteTitle = useSelector((state) => state.note.title);
+  const noteContent = useSelector((state) => state.note.content);
 
   // const handleSaveNoteBtn = (event) => {
   //   event.preventDefault();
@@ -35,20 +38,31 @@ const CreateNoteButton = () => {
   //     });
   // };
 
+  const handleSaveNote = () => {
+    dispatch(setIsCreateNoteMode(!isCreateNoteMode));
+    axios
+      .post(
+        "http://localhost:5555/notes",
+        { title: noteTitle, content: noteContent },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
   return (
     <Box>
       {isCreateNoteMode ? (
         <Box display={"flex"} flexDirection={"column"}>
-          <IconButton
-            form="note"
-            type="submit"
-            onClick={(event) => {
-              event.preventDefault();
-              // const form = new FormData(event.target);
-              console.log(event.target);
-              dispatch(setIsCreateNoteMode(!isCreateNoteMode));
-            }}
-          >
+          <IconButton form="note" type="submit" onClick={handleSaveNote}>
             <img
               src={saveNoteIcon}
               style={{
