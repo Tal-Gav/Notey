@@ -1,18 +1,17 @@
+import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Account() {
+export default function Welcome() {
   const navigate = useNavigate();
 
   const [accountAuth, setAccountAuth] = useState(false);
-  const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
   const setAccountData = (account) => {
-    setEmail(account.email);
     setFirstName(account.firstName);
     setLastName(account.lastName);
   };
@@ -44,17 +43,16 @@ export default function Account() {
   return accountAuth ? (
     <>
       <Typography component="h1" variant="h3">
-        Account
+        Welcome {firstName}!
       </Typography>
-      <Typography component="h1" variant="h5">
-        Email: {email}
-      </Typography>
-      <Typography component="h1" variant="h5">
-        First Name: {firstName}
-      </Typography>
-      <Typography component="h1" variant="h5">
-        Last Name: {lastName}
-      </Typography>
+      <Button
+        variant="contained"
+        onClick={() => {
+          navigate("/notes");
+        }}
+      >
+        Start creating notes
+      </Button>
     </>
   ) : null;
 }
