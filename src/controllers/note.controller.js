@@ -11,11 +11,15 @@ export const createNote = async (req, res) => {
     const newNote = {
       title: req.body.title,
       content: req.body.content,
+      account: req.params.accountId,
     };
 
-    const note = await Note.create(newNote);
-
-    return res.status(201).json({ message: "Note created." });
+    try {
+      const note = await Note.create(newNote);
+      return res.status(201).json({ message: "Note created." });
+    } catch (err) {
+      return res.json({ message: err });
+    }
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
@@ -25,7 +29,7 @@ export const createNote = async (req, res) => {
 // Get all the existing notes
 export const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find({});
+    const notes = await Note.find({ account: req.params.accountId });
 
     return res.status(200).json({
       count: notes.length,
@@ -54,35 +58,24 @@ export const getNoteById = async (req, res) => {
 // Update an existing note by id
 export const updateNoteById = async (req, res) => {
   try {
-    console.log("here 1");
-
     if (!req.body.title || !req.body.content) {
-      console.log(req.body);
-      console.log("here 2");
       return res.status(400).json({
         message: "Send all required fields: id, title, content.",
       });
     }
     const { noteId } = req.params;
     const result = await Note.findByIdAndUpdate(noteId, req.body);
-    console.log("here 3");
 
     if (!result) {
-      console.log("here 4");
-
       return res.status(404).json({ message: "Note not found" });
     }
-    console.log(result);
-    console.log("here 5");
 
     return res.status(200).json({ message: "Note updated successfully" });
   } catch (error) {
-    console.log("here 6");
-
     console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
-};  
+};
 
 // Delete an existing note by id
 export const deleteNoteById = async (req, res) => {

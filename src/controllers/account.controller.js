@@ -29,7 +29,7 @@ export const signupAccount = async (req, res) => {
     return (
       res
         // .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
-        .json({ message: "Account created." })
+        .json({ message: "Account created.", token })
     );
   } catch (error) {
     console.log(error.message);
@@ -45,7 +45,6 @@ export const signupAccount = async (req, res) => {
 export const loginAccount = async (req, res) => {
   const { email, password } = req.body;
   try {
-    console.log(email, password);
     const account = await Account.login(email, password);
     const token = generateAccessToken(account._id);
     return (
@@ -80,7 +79,7 @@ export const getAccountById = async (req, res) => {
     const { accountId } = req.params;
 
     const account = await Account.findById(accountId).select(
-      "firstName lastName email -_id"
+      "firstName lastName email _id"
     );
 
     return res.status(200).json({ account });
@@ -93,20 +92,14 @@ export const getAccountById = async (req, res) => {
 // Update an existing account by id
 export const updateAccount = async (req, res) => {
   try {
-    if (
-      !req.body.firstName ||
-      !req.body.lastName ||
-      !req.body.email ||
-      !req.body.password
-    ) {
+    if (!req.body.firstName || !req.body.lastName || !req.body.email) {
       return res.status(400).send({
-        message:
-          "Send all required fields: firstName, lastName, email, password.",
+        message: "Send all required fields: firstName, lastName, email",
       });
     }
 
     const { id } = req.params;
-
+    console.log(id);
     const result = await Account.findByIdAndUpdate(id, req.body);
 
     if (!result) {
