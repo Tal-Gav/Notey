@@ -12,10 +12,15 @@ export const newNoteSlice = createSlice({
     setNewNoteContent: (state, action) => {
       state.content = action.payload;
     },
+    clearNoteFields: (state, action) => {
+      state.title = "";
+      state.content = "";
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setNewNoteTitle, setNewNoteContent } = newNoteSlice.actions;
+export const { setNewNoteTitle, setNewNoteContent, clearNoteFields } =
+  newNoteSlice.actions;
 
 export default newNoteSlice.reducer;

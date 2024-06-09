@@ -8,55 +8,49 @@ import {
 import { Tooltip } from "react-tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { deleteNote, updateNote } from "../store/notesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+const baseURL = "http://localhost:5555/notes/";
+
+const axiosConfig = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+};
 
 const Note = ({ note }) => {
-  console.log(note);
-  const [noteId, setNoteId] = useState(note && note._id);
-  const [noteTitle, setNoteTitle] = useState(note && note.title);
-  const [noteContent, setNoteContent] = useState(note && note.content);
-  console.log("noteTitle", noteTitle);
+  const [noteId, setNoteId] = useState(note._id);
+  const [noteTitle, setNoteTitle] = useState(note.title);
+  const [noteContent, setNoteContent] = useState(note.content);
+  const dispatch = useDispatch();
 
-  // TODO: Fix the update
-  const handleNoteUpdate = () => {
-    const updatedNote = {
-      title: noteTitle,
-      content: noteContent,
-    };
-
-    axios
-      .put("http://localhost:5555/notes/" + noteId, updatedNote, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        toast.success(res.data.message);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+  const handleNoteUpdate = async () => {
+    try {
+      const updatedNote = {
+        _id: noteId,
+        title: noteTitle,
+        content: noteContent,
+      };
+      const res = await axios.put(baseURL + noteId, updatedNote, axiosConfig);
+      toast.success(res.data.message);
+      dispatch(updateNote(updatedNote));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
-  const handleNoteDelete = () => {
-    axios
-      .delete("http://localhost:5555/notes/" + noteId, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        // dispatch(deleteNote(noteId));
-        toast.success(res.data.message);
-        // navigate("/");
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+  const handleNoteDelete = async () => {
+    try {
+      const res = await axios.delete(`${baseURL}${noteId}`, axiosConfig);
+      dispatch(deleteNote(noteId));
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (

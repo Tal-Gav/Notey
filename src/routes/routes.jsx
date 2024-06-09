@@ -17,6 +17,7 @@ import NoAccess from "../pages/NoAccess/NoAccess";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
+import Welcome from "../pages/Welcome/Welcome";
 
 // Layout for public routes
 const PublicLayout = () => (
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
       </Route>
       <Route element={<AuthOutlet authKey="_auth" fallbackPath="/home" />}>
         <Route element={<ProtectedLayout />}>
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/about" element={<About />} />
           <Route path="/account" element={<Account />} />

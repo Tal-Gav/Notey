@@ -1,45 +1,61 @@
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-
 import CreateNoteButton from "../../components/CreateNoteButton/CreateNoteButton";
 import Note from "../../components/Note";
 import NewNote from "../../components/NewNote";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { Box, Container } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { Box } from "@mui/material";
+import { toast } from "react-toastify";
+import { fetchNotes, deleteNote, updateNote } from "../../store/notesSlice";
+import { MutatingDots } from "react-loader-spinner";
 
 const Notes = () => {
-  const [notes, setNotes] = useState([]);
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
-
-  const getNotes = () => {
-    axios
-      .get("http://localhost:5555/notes", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        setNotes(res.data.notes);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
-  };
+  const dispatch = useDispatch();
+  const notes = useSelector((state) => state.notes.notes);
+  const fetchStatus = useSelector((state) => state.notes.fetchStatus);
+  const fetchMessage = useSelector((state) => state.notes.fetchMessage);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getNotes();
-  }, []);
-  return (
-    <Box display={"flex"}>
-      {notes.map((note, index) => (
-        <Note note={note} key={index} />
-      ))}
+    if (fetchStatus === "idle") {
+      dispatch(fetchNotes());
+    }
+  }, [fetchStatus, dispatch]);
 
-      {isCreateNoteMode && <NewNote key={"createNote"} />}
-      <CreateNoteButton />
+  useEffect(() => {
+    if (fetchStatus === "succeeded") {
+      setLoading(false);
+      toast.success(fetchMessage);
+    } else if (fetchStatus === "failed") {
+      setLoading(false);
+      toast.error(fetchMessage);
+    }
+  }, [fetchStatus, fetchMessage]);
+
+  return (
+    <Box display={"flex"} flexWrap={"wrap"}>
+      {loading ? (
+        <MutatingDots
+          visible={true}
+          height="100"
+          width="100"
+          color="#5730bf"
+          secondaryColor="#5730bf"
+          radius="12.5"
+          ariaLabel="mutating-dots-loading"
+        />
+      ) : (
+        <>
+          {notes.map((note, index) => (
+            <Note note={note} key={note._id} />
+          ))}
+          {isCreateNoteMode && <NewNote />}
+          <CreateNoteButton />
+        </>
+      )}
     </Box>
   );
 };
+
 export default Notes;

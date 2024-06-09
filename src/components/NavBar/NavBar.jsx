@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import noteyLogo from "../../assets/notey-clean.png";
 
-const pages = ["Home", "Notes", "About"];
+const pages = ["Welcome", "Notes", "About"];
 const settings = ["Account", "Dashboard", "Logout"];
 
 export default function NavBar() {
@@ -51,7 +51,10 @@ export default function NavBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: "#6516cc" }}>
+    <AppBar
+      position="static"
+      sx={{ bgcolor: "#6516cc", position: "sticky", top: 0 }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

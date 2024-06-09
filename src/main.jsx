@@ -9,6 +9,10 @@ import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+
+axios.defaults.headers.withCredentials = true;
+axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

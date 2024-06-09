@@ -6,6 +6,17 @@ import { setIsCreateNoteMode } from "../../store/isCreateNoteModeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { addNote } from "../../store/notesSlice";
+import { useEffect } from "react";
+import { clearNoteFields } from "../../store/newNoteSlice";
+const baseURL = "http://localhost:5555/notes/";
+
+const axiosConfig = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+};
 
 const CreateNoteButton = () => {
   const dispatch = useDispatch();
@@ -13,26 +24,24 @@ const CreateNoteButton = () => {
   const newNoteTitle = useSelector((state) => state.newNote.title);
   const newNoteContent = useSelector((state) => state.newNote.content);
 
-  const handleSaveNote = () => {
-    dispatch(setIsCreateNoteMode(!isCreateNoteMode));
-    axios
-      .post(
-        "http://localhost:5555/notes",
-        { title: newNoteTitle, content: newNoteContent },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+  const handleSaveNote = async () => {
+    try {
+      const newNote = { title: newNoteTitle, content: newNoteContent };
+      const res = await axios.post(baseURL, newNote, axiosConfig);
+      console.log(res);
+      const newNoteWithId = { ...newNote, _id: res.data._id };
+      console.log(newNoteWithId);
+      dispatch(addNote(newNoteWithId));
+      dispatch(setIsCreateNoteMode(false));
+      dispatch(clearNoteFields());
+
+      toast.success(res.data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
   };
+
   return (
     <Box>
       {isCreateNoteMode ? (
@@ -50,7 +59,8 @@ const CreateNoteButton = () => {
           </IconButton>
           <IconButton
             onClick={() => {
-              dispatch(setIsCreateNoteMode(!isCreateNoteMode));
+              dispatch(setIsCreateNoteMode(false));
+              dispatch(clearNoteFields());
             }}
           >
             <img
@@ -67,7 +77,7 @@ const CreateNoteButton = () => {
       ) : (
         <IconButton
           onClick={() => {
-            dispatch(setIsCreateNoteMode(!isCreateNoteMode));
+            dispatch(setIsCreateNoteMode(true));
           }}
         >
           <img
