@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-clean.png";
 import { Box } from "@mui/material";
-
+import Purp from "../../assets/purpy.mp4";
 const defaultOptions = {
   reverse: false, // reverse the tilt direction
   max: 14, // max tilt rotation (degrees)
@@ -21,62 +21,83 @@ const defaultOptions = {
 
 export default function HomePage() {
   return (
-    <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
+    <>
       <div
         className="white-background"
-        style={{ backgroundImage: `url(${whiteBackground})` }}
-      ></div>
-      {/* <div className="gradient-background"></div>  */}
+        style={{
+          backgroundImage: `url(${whiteBackground})`,
+          opacity: "0.15",
+        }}
+      />
+      <video
+        autoPlay
+        loop
+        muted
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -10,
+          filter: "brightness(80%)",
+        }}
+      >
+        <source src={Purp} type="video/mp4" />
+      </video>
 
-      <div className="grad" />
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        {/* <div className="gradient-background"></div>  */}
 
-      <div className="container">
-        <Grid container spacing={5} direction="column" alignItems="center">
-          <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: "18vh" }}>
-            <img
-              className="notey-logo shadowed"
-              src={noteyLogo}
-              alt="Logo"
-              draggable="false"
-            />
+        {/* <div className="grad" /> */}
+
+        <div className="container">
+          <Grid container spacing={5} direction="column" alignItems="center">
+            <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: "18vh" }}>
+              <img
+                className="notey-logo shadowed"
+                src={noteyLogo}
+                alt="Logo"
+                draggable="false"
+              />
+            </Grid>
+            <Grid item xl={6} md={6} sm={12} xs={12}>
+              <div className="desc typewriter font-sanssemi-extralight">
+                Write down anything. easily.
+              </div>
+            </Grid>
+            <Grid
+              item
+              xl={6}
+              md={6}
+              sm={12}
+              xs={12}
+              sx={{
+                marginTop: "6vh",
+                display: "flex",
+                justifyContent: "center",
+                gap: "8vh",
+              }}
+            >
+              <Tilt options={defaultOptions}>
+                <Link to="/signup" className="no-underscore">
+                  <div className="sign-up-btn font-tt-fors-regular">
+                    <div className="btn-text">Sign Up</div>
+                  </div>
+                </Link>
+              </Tilt>
+              <Tilt options={defaultOptions}>
+                <Link to="/login" className="no-underscore">
+                  <div className="log-in-btn font-tt-fors-regular">
+                    <div className="btn-text">Log In</div>
+                  </div>
+                </Link>
+              </Tilt>
+            </Grid>
           </Grid>
-          <Grid item xl={6} md={6} sm={12} xs={12}>
-            <div className="desc typewriter font-sanssemi-extralight">
-              Write down anything. easily.
-            </div>
-          </Grid>
-          <Grid
-            item
-            xl={6}
-            md={6}
-            sm={12}
-            xs={12}
-            sx={{
-              marginTop: "6vh",
-              display: "flex",
-              justifyContent: "center",
-              gap: "8vh",
-            }}
-          >
-            <Tilt options={defaultOptions}>
-              <Link to="/signup" className="no-underscore">
-                <div className="sign-up-btn font-tt-fors-regular">
-                  <div className="btn-text">Sign Up</div>
-                </div>
-              </Link>
-            </Tilt>
-            <Tilt options={defaultOptions}>
-              <Link to="/login" className="no-underscore">
-                <div className="log-in-btn font-tt-fors-regular">
-                  <div className="btn-text">Log In</div>
-                </div>
-              </Link>
-            </Tilt>
-          </Grid>
-        </Grid>
-      </div>
-    </Box>
+        </div>
+      </Box>
+    </>
   );
 }

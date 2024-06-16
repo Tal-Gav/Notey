@@ -60,19 +60,15 @@ const Login = () => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundImage: `url(${whiteBackground})`,
+        backgroundSize: "cover",
       }}
     >
-      <div
-        className="white-background"
-        style={{ backgroundImage: `url(${whiteBackground})` }}
-      />
-
       <Box
         sx={{
-          marginTop: "2vh",
           display: "flex",
           width: "25vw",
           height: "80vh",
@@ -80,11 +76,12 @@ const Login = () => {
           boxShadow: "0px 0px 20px 0px #5730bfb3",
           bgcolor: "white",
           flexDirection: "column",
+          justifyContent: "center",
           alignItems: "center",
         }}
       >
         <Box
-          p={6}
+          pb={6}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -206,4 +203,5 @@ const Login = () => {
     </Box>
   );
 };
+
 export default Login;

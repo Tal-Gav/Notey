@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { logout } from "./authSlice"; // Import the logout action
 
 const baseURL = "http://localhost:5555/notes/";
 
@@ -50,6 +51,11 @@ const notesSlice = createSlice({
       .addCase(fetchNotes.rejected, (state, action) => {
         state.fetchStatus = "failed";
         state.fetchMessage = action.error.message;
+      })
+      .addCase(logout, (state) => {
+        state.notes = [];
+        state.fetchStatus = "idle";
+        state.fetchMessage = null;
       });
   },
 });

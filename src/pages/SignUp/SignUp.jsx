@@ -68,19 +68,15 @@ const Signup = () => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundImage: `url(${whiteBackground})`,
+        backgroundSize: "cover",
       }}
     >
-      <div
-        className="white-background"
-        style={{ backgroundImage: `url(${whiteBackground})` }}
-      />
-
       <Box
         sx={{
-          marginTop: "2vh",
           display: "flex",
           width: "25vw",
           height: "80vh",

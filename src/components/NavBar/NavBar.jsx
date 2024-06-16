@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import noteyLogo from "../../assets/notey-clean.png";
+import { logout } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
 
 const pages = ["Welcome", "Notes", "About"];
 const settings = ["Account", "Dashboard", "Logout"];
@@ -23,6 +25,7 @@ export default function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const signOut = useSignOut();
 
   const handleOpenNavMenu = (event) => {
@@ -44,6 +47,8 @@ export default function NavBar() {
     console.log(typeof setting);
     if (setting === "Logout") {
       signOut();
+      // TODO: verify notes per account, redux notes issue
+      dispatch(logout());
       navigate("/home");
     } else {
       navigate(`${setting}`);
