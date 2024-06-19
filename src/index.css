@@ -29,3 +29,15 @@ code {
   src: local("TT-Fors-Regular"),
     url("./fonts/TT-Fors-Regular.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Outfit-ExtraBold";
+  src: local("Outfit-ExtraBold"),
+    url("./fonts/Outfit-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Outfit-Regular";
+  src: local("Outfit-Regular"),
+    url("./fonts/Outfit-Regular.ttf") format("truetype");
+}

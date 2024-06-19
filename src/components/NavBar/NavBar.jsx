@@ -18,8 +18,8 @@ import noteyLogo from "../../assets/notey-clean.png";
 import { logout } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
 
-const pages = ["Welcome", "Notes", "About"];
-const settings = ["Account", "Dashboard", "Logout"];
+const pages = ["Welcome", "Notes", "Account"];
+const settings = ["Account", "Logout"];
 
 export default function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -47,7 +47,6 @@ export default function NavBar() {
     console.log(typeof setting);
     if (setting === "Logout") {
       signOut();
-      // TODO: verify notes per account, redux notes issue
       dispatch(logout());
       navigate("/home");
     } else {
@@ -58,7 +57,7 @@ export default function NavBar() {
   return (
     <AppBar
       position="static"
-      sx={{ bgcolor: "#6516cc", position: "sticky", top: 0 }}
+      sx={{ bgcolor: "#6516cc", position: "sticky", top: 0, zIndex: 1000 }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>

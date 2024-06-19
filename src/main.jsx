@@ -5,6 +5,8 @@ import App from "./App";
 import "./fonts/TT-Fors-Medium.ttf";
 import "./fonts/TT-Fors-Regular.ttf";
 import "./fonts/EncodeSansSemiCondensed-ExtraLight.ttf";
+import "./fonts/Outfit-ExtraBold.ttf";
+import "./fonts/Outfit-ExtraBold.ttf";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { ToastContainer, toast, Bounce } from "react-toastify";

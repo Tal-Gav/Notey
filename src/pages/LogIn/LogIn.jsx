@@ -48,7 +48,7 @@ const Login = () => {
           })
         ) {
           toast.success(res.data.message);
-          navigate("/notes");
+          navigate("/welcome");
         }
       })
       .catch((error) => {

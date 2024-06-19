@@ -11,7 +11,6 @@ import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
 import NavBar from "../components/NavBar/NavBar";
 import Notes from "../pages/Notes/Notes";
-import About from "../pages/About/About";
 import Account from "../pages/Account/Account";
 import NoAccess from "../pages/NoAccess/NoAccess";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
@@ -46,9 +45,8 @@ const router = createBrowserRouter(
       </Route>
       <Route element={<AuthOutlet authKey="_auth" fallbackPath="/home" />}>
         <Route element={<ProtectedLayout />}>
-          <Route path="/welcome" element={<Welcome />} />
           <Route path="/notes" element={<Notes />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/account" element={<Account />} />
         </Route>
       </Route>

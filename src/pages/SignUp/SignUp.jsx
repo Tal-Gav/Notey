@@ -56,7 +56,7 @@ const Signup = () => {
             userState: { email },
           })
         ) {
-          navigate("/notes");
+          navigate("/welcome");
         }
       })
       .catch((error) => {

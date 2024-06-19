@@ -34,6 +34,7 @@ const NewNote = () => {
             variant="outlined"
             label="Title"
             fullWidth
+            autoComplete={false}
             InputProps={{
               style: {
                 borderRadius: "1em",

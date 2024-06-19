@@ -13,14 +13,7 @@ import { toast } from "react-toastify";
 import { deleteNote, updateNote } from "../store/notesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-const baseURL = "http://localhost:5555/notes/";
-
-const axiosConfig = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true,
-};
+import { notesURL, axiosConfig } from "../constants";
 
 const Note = ({ note }) => {
   const [noteId, setNoteId] = useState(note._id);
@@ -35,7 +28,7 @@ const Note = ({ note }) => {
         title: noteTitle,
         content: noteContent,
       };
-      const res = await axios.put(baseURL + noteId, updatedNote, axiosConfig);
+      const res = await axios.put(notesURL + noteId, updatedNote, axiosConfig);
       toast.success(res.data.message);
       dispatch(updateNote(updatedNote));
     } catch (error) {
@@ -45,7 +38,7 @@ const Note = ({ note }) => {
 
   const handleNoteDelete = async () => {
     try {
-      const res = await axios.delete(`${baseURL}${noteId}`, axiosConfig);
+      const res = await axios.delete(notesURL + noteId, axiosConfig);
       dispatch(deleteNote(noteId));
       toast.success(res.data.message);
     } catch (error) {

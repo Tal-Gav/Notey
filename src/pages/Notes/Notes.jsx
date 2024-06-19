@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 import { toast } from "react-toastify";
 import { fetchNotes, deleteNote, updateNote } from "../../store/notesSlice";
 import { MutatingDots } from "react-loader-spinner";
+import whiteBackground from "../../assets/white.jpg";
 
 const Notes = () => {
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
@@ -34,7 +35,16 @@ const Notes = () => {
   }, [fetchStatus, fetchMessage]);
 
   return (
-    <Box display={"flex"} flexWrap={"wrap"}>
+    <Box
+      display={"flex"}
+      flexWrap={"wrap"}
+      sx={{
+        display: "flex",
+        height: "100vh",
+        backgroundImage: `url(${whiteBackground})`,
+        backgroundSize: "cover",
+      }}
+    >
       {loading ? (
         <MutatingDots
           visible={true}

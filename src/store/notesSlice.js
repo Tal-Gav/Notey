@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { logout } from "./authSlice"; // Import the logout action
-
-const baseURL = "http://localhost:5555/notes/";
+import { notesURL } from "../constants";
 
 const axiosConfig = {
   headers: {
@@ -12,7 +11,7 @@ const axiosConfig = {
 };
 
 export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-  const response = await axios.get(baseURL, axiosConfig);
+  const response = await axios.get(notesURL, axiosConfig);
   return response.data.notes;
 });
 

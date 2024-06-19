@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import { toast } from "react-toastify";
+import whiteBackground from "../../assets/white.jpg";
 
 export default function Account() {
   const navigate = useNavigate();
@@ -70,6 +71,10 @@ export default function Account() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        height: "90vh",
+        overflow: "hidden",
+        backgroundImage: `url(${whiteBackground})`,
+        backgroundSize: "cover",
       }}
     >
       <Box pt={2} />
@@ -95,6 +100,7 @@ export default function Account() {
           "& label.Mui-focused": {
             color: "#6F00FF",
           },
+
           "& .MuiOutlinedInput-root": {
             "&.Mui-focused fieldset": {
               borderColor: "#6F00FF",
@@ -154,7 +160,17 @@ export default function Account() {
       <Button
         variant="contained"
         onClick={handleAccountUpdate}
-        sx={{ backgroundColor: "#6516cc" }}
+        sx={{
+          backgroundColor: "#6516cc",
+          "&:hover": {
+            backgroundColor: "#6F00FF",
+            boxShadow: "none",
+          },
+          "&:active": {
+            boxShadow: "none",
+            backgroundColor: "#6F00FF",
+          },
+        }}
       >
         update <SaveRoundedIcon sx={{ color: "white" }} />
       </Button>

@@ -9,14 +9,7 @@ import { toast } from "react-toastify";
 import { addNote } from "../../store/notesSlice";
 import { useEffect } from "react";
 import { clearNoteFields } from "../../store/newNoteSlice";
-const baseURL = "http://localhost:5555/notes/";
-
-const axiosConfig = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true,
-};
+import { axiosConfig, notesURL } from "../../constants";
 
 const CreateNoteButton = () => {
   const dispatch = useDispatch();
@@ -27,7 +20,7 @@ const CreateNoteButton = () => {
   const handleSaveNote = async () => {
     try {
       const newNote = { title: newNoteTitle, content: newNoteContent };
-      const res = await axios.post(baseURL, newNote, axiosConfig);
+      const res = await axios.post(notesURL, newNote, axiosConfig);
       console.log(res);
       const newNoteWithId = { ...newNote, _id: res.data._id };
       console.log(newNoteWithId);
