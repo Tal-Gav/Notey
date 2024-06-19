@@ -15,19 +15,33 @@ const authenticateAccount = (req, res, next) => {
 
   // check json web token exists & is verified
   if (token) {
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, decodedToken) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
       if (err) {
         console.log(err.message);
-        res.status(401).send({
+        res.status(401).json({
           message: "Authentication failed.",
         });
       } else {
-        req.params.accountId = decodedToken.id;
-        next();
+        const account = await Account.findById(decodedToken.id).select(
+          "firstName lastName email _id"
+        );
+        if (account) {
+          req.params.accountId = decodedToken.id;
+          next();
+        } else {
+          res
+            .status(403)
+            .clearCookie("_auth")
+            .clearCookie("_auth_state")
+            .clearCookie("_auth_type")
+            .json({
+              message: "No access.",
+            });
+        }
       }
     });
   } else {
-    res.status(403).send({
+    res.status(403).json({
       message: "No access.",
     });
   }

@@ -53,7 +53,6 @@ export const loginAccount = async (req, res) => {
         .json({ message: "Account logged in.", token })
     );
   } catch (error) {
-    console.log(error.message);
     res.status(500).send({ message: error.message });
   }
 };

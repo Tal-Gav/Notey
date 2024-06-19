@@ -16,13 +16,13 @@ export const createNote = async (req, res) => {
 
     try {
       const note = await Note.create(newNote);
-      return res.status(201).json({ message: "Note created." });
+      return res.status(201).json({ message: "Note created.", _id: note._id });
     } catch (err) {
       return res.json({ message: err });
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).send({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -30,7 +30,6 @@ export const createNote = async (req, res) => {
 export const getNotes = async (req, res) => {
   try {
     const notes = await Note.find({ account: req.params.accountId });
-
     return res.status(200).json({
       count: notes.length,
       notes: notes,
