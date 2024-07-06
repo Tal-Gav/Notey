@@ -44,6 +44,9 @@ export const signupAccount = async (req, res) => {
 
 export const loginAccount = async (req, res) => {
   const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
   try {
     const account = await Account.login(email, password);
     const token = generateAccessToken(account._id);

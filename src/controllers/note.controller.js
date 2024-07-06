@@ -29,6 +29,7 @@ export const createNote = async (req, res) => {
 // Get all the existing notes
 export const getNotes = async (req, res) => {
   try {
+    console.log(req.params.accountId);
     const notes = await Note.find({ account: req.params.accountId });
     return res.status(200).json({
       count: notes.length,

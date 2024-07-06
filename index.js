@@ -8,6 +8,13 @@ mongoose.connect(process.env.MONGODB_URL).catch((error) => {
 });
 
 const server = http.createServer(backendApp);
-server.listen(process.env.PORT);
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  server.listen(process.env.PORT, () =>
+    console.log(`Server running on port ${process.env.PORT}`)
+  );
+});
 
-console.log(`server is up at port: ${process.env.PORT}`);
+mongoose.connection.on("error", (err) => {
+  console.log(err);
+});

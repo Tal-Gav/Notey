@@ -1,50 +1,36 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { Account } from "../models/account.model.js";
 
-const generateAccessToken = (id) => {
-  return jwt.sign({ id }, process.env.TOKEN_SECRET, { expiresIn: "3600s" });
+const generateRefreshToken = (id) => {
+  return jwt.sign({ id }, process.env.REFRESH_TOKEN, { expiresIn: "7d" });
 };
 
-const getAccountFromEmail = async (email) => {
-  return await Account.find({ email });
+const generateAccessToken = (accountInfo) => {
+  return jwt.sign({ accountInfo }, process.env.ACCESS_TOKEN, {
+    expiresIn: "10m",
+  });
 };
 
 const authenticateAccount = (req, res, next) => {
-  const token = req.cookies._auth;
+  const authHeader = req.headers.authorization || req.headers.Authorization;
+  if (!authHeader?.startsWith("Bearer ")) {
+    console.log("Unauthorized");
+    console.log(authHeader);
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  const accessToken = authHeader.split(" ")[1];
 
   // check json web token exists & is verified
-  if (token) {
-    jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
-      if (err) {
-        console.log(err.message);
-        res.status(401).json({
-          message: "Authentication failed.",
-        });
-      } else {
-        const account = await Account.findById(decodedToken.id).select(
-          "firstName lastName email _id"
-        );
-        if (account) {
-          req.params.accountId = decodedToken.id;
-          next();
-        } else {
-          res
-            .status(403)
-            .clearCookie("_auth")
-            .clearCookie("_auth_state")
-            .clearCookie("_auth_type")
-            .json({
-              message: "No access.",
-            });
-        }
-      }
-    });
-  } else {
-    res.status(403).json({
-      message: "No access.",
-    });
-  }
+  jwt.verify(
+    accessToken,
+    process.env.ACCESS_TOKEN,
+    async (err, decodedToken) => {
+      if (err) return res.status(403).json({ message: "Forbidden" });
+      req.params.accountId = decodedToken.accountInfo._id;
+      console.log("authorized");
+      next();
+    }
+  );
 };
 
-export { generateAccessToken, getAccountFromEmail, authenticateAccount };
+export { generateAccessToken, generateRefreshToken, authenticateAccount };
