@@ -6,33 +6,37 @@ import NewNote from "../../components/NewNote";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
-import { fetchNotes, deleteNote, updateNote } from "../../store/notesSlice";
+import { deleteNote, updateNote } from "../../store/notesSlice";
 import { MutatingDots } from "react-loader-spinner";
 import whiteBackground from "../../assets/white.jpg";
+import useFetchNotes from "../../hooks/useFetchNotes";
 
 const Notes = () => {
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
   const dispatch = useDispatch();
+  const fetchNotes = useFetchNotes();
   const notes = useSelector((state) => state.notes.notes);
-  const fetchStatus = useSelector((state) => state.notes.fetchStatus);
-  const fetchMessage = useSelector((state) => state.notes.fetchMessage);
+  // const fetchStatus = useSelector((state) => state.notes.fetchStatus);
+  // const fetchMessage = useSelector((state) => state.notes.fetchMessage);
   const [loading, setLoading] = useState(true);
 
+  const getNotes = async () => {
+    await fetchNotes();
+    setLoading(false);
+  };
   useEffect(() => {
-    if (fetchStatus === "idle") {
-      dispatch(fetchNotes());
-    }
-  }, [fetchStatus, dispatch]);
+    getNotes();
+  }, []);
 
-  useEffect(() => {
-    if (fetchStatus === "succeeded") {
-      setLoading(false);
-      toast.success(fetchMessage);
-    } else if (fetchStatus === "failed") {
-      setLoading(false);
-      toast.error(fetchMessage);
-    }
-  }, [fetchStatus, fetchMessage]);
+  // useEffect(() => {
+  //   if (fetchStatus === "succeeded") {
+  //     setLoading(false);
+  //     toast.success(fetchMessage);
+  //   } else if (fetchStatus === "failed") {
+  //     setLoading(false);
+  //     toast.error(fetchMessage);
+  //   }
+  // }, [fetchStatus, fetchMessage]);
 
   return (
     <Box

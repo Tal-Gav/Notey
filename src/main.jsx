@@ -11,15 +11,14 @@ import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-
-axios.defaults.headers.withCredentials = true;
-axios.defaults.headers.common["Content-Type"] = "application/json";
+import { AuthProvider } from "./context/AuthProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
     <ToastContainer
       position="bottom-left"
       autoClose={5000}

@@ -13,10 +13,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import useSignOut from "react-auth-kit/hooks/useSignOut";
 import noteyLogo from "../../assets/notey-clean.png";
-import { logout } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
+import useLogout from "../../hooks/useLogout";
 
 const pages = ["Welcome", "Notes", "Account"];
 const settings = ["Account", "Logout"];
@@ -26,7 +25,7 @@ export default function NavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const signOut = useSignOut();
+  const logOut = useLogout();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -43,12 +42,15 @@ export default function NavBar() {
     setAnchorElUser(null);
   };
 
+  const logOutUser = async () => {
+    await logOut();
+    navigate("/home");
+  };
+
   const handleUserMenuClick = (setting) => {
     console.log(typeof setting);
     if (setting === "Logout") {
-      signOut();
-      dispatch(logout());
-      navigate("/home");
+      logOutUser();
     } else {
       navigate(`${setting}`);
     }

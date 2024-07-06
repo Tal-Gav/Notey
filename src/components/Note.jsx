@@ -8,14 +8,14 @@ import {
 import { Tooltip } from "react-tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { deleteNote, updateNote } from "../store/notesSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { notesURL, axiosConfig } from "../constants";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Note = ({ note }) => {
+  const axiosPrivate = useAxiosPrivate();
   const [noteId, setNoteId] = useState(note._id);
   const [noteTitle, setNoteTitle] = useState(note.title);
   const [noteContent, setNoteContent] = useState(note.content);
@@ -28,7 +28,7 @@ const Note = ({ note }) => {
         title: noteTitle,
         content: noteContent,
       };
-      const res = await axios.put(notesURL + noteId, updatedNote, axiosConfig);
+      const res = await axiosPrivate.put("/notes/" + noteId, updatedNote);
       toast.success(res.data.message);
       dispatch(updateNote(updatedNote));
     } catch (error) {
@@ -38,7 +38,9 @@ const Note = ({ note }) => {
 
   const handleNoteDelete = async () => {
     try {
-      const res = await axios.delete(notesURL + noteId, axiosConfig);
+      const res = await axiosPrivate.delete("/notes/" + noteId);
+      console.log(res);
+
       dispatch(deleteNote(noteId));
       toast.success(res.data.message);
     } catch (error) {

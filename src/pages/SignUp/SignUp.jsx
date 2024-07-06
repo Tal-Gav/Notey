@@ -1,25 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import React, { useState } from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import useSignIn from "react-auth-kit/hooks/useSignIn";
 import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-purple.png";
 import { Divider } from "@mui/material";
 import { toast } from "react-toastify";
+import axios from "../../api/axios";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const signInAuth = useSignIn();
 
   const submittedForm = (event) => {
     event.preventDefault();
@@ -28,8 +22,6 @@ const Signup = () => {
   };
 
   const handleAccount = (form) => {
-    const email = form.get("email");
-
     const account = {
       firstName: form.get("firstName"),
       lastName: form.get("lastName"),
@@ -37,27 +29,12 @@ const Signup = () => {
       password: form.get("password"),
     };
 
-    // setLoading(true);
     axios
-      .post("http://localhost:5555/accounts/signup", account, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+      .post("/accounts/signup", account)
       .then((res) => {
         toast.success(res.data.message);
-        if (
-          signInAuth({
-            auth: {
-              token: res.data.token,
-              type: "Bearer",
-            },
-            userState: { email },
-          })
-        ) {
-          navigate("/welcome");
-        }
+
+        navigate("/welcome");
       })
       .catch((error) => {
         toast.error(error.response.data.message);

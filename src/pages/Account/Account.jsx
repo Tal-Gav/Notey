@@ -1,15 +1,15 @@
 import { Box, Divider, TextField, IconButton, Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import { toast } from "react-toastify";
 import whiteBackground from "../../assets/white.jpg";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 export default function Account() {
   const navigate = useNavigate();
-
+  const axiosPrivate = useAxiosPrivate();
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -21,13 +21,8 @@ export default function Account() {
       lastName,
       email,
     };
-    axios
-      .put("http://localhost:5555/accounts/" + id, newAccountInfo, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+    axiosPrivate
+      .put("/accounts/" + id, newAccountInfo)
       .then((res) => {
         toast.success(res.data.message);
       })
@@ -45,13 +40,8 @@ export default function Account() {
   };
 
   const getAccountData = async () => {
-    axios
-      .get("http://localhost:5555/accounts/details", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+    axiosPrivate
+      .get("/accounts/details")
       .then((res) => {
         setAccountData(res.data.account);
       })

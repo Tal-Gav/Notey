@@ -4,26 +4,25 @@ import discardNoteIcon from "../../assets/x.svg";
 import saveNoteIcon from "../../assets/v.svg";
 import { setIsCreateNoteMode } from "../../store/isCreateNoteModeSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { addNote } from "../../store/notesSlice";
-import { useEffect } from "react";
 import { clearNoteFields } from "../../store/newNoteSlice";
-import { axiosConfig, notesURL } from "../../constants";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const CreateNoteButton = () => {
   const dispatch = useDispatch();
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
   const newNoteTitle = useSelector((state) => state.newNote.title);
+  const axiosPrivate = useAxiosPrivate();
   const newNoteContent = useSelector((state) => state.newNote.content);
 
   const handleSaveNote = async () => {
     try {
       const newNote = { title: newNoteTitle, content: newNoteContent };
-      const res = await axios.post(notesURL, newNote, axiosConfig);
-      console.log(res);
+
+      const res = await axiosPrivate.post("/notes", newNote);
       const newNoteWithId = { ...newNote, _id: res.data._id };
-      console.log(newNoteWithId);
+
       dispatch(addNote(newNoteWithId));
       dispatch(setIsCreateNoteMode(false));
       dispatch(clearNoteFields());

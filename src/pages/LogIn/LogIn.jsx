@@ -1,20 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import useSignIn from "react-auth-kit/hooks/useSignIn";
 import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-purple.png";
 import { Divider } from "@mui/material";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import useAuth from "../../hooks/useAuth";
+import axios from "../../api/axios";
+import { useEffect } from "react";
 
 const Login = () => {
+  const { setAuth, persist } = useAuth();
   const navigate = useNavigate();
-  const signInAuth = useSignIn();
+  const dispatch = useDispatch();
 
   const submittedForm = (event) => {
     event.preventDefault();
@@ -22,39 +25,28 @@ const Login = () => {
     handleAccount(form);
   };
 
-  const handleAccount = (form) => {
-    const email = form.get("email");
-
+  const handleAccount = async (form) => {
     const account = {
       email: form.get("email"),
       password: form.get("password"),
     };
-    axios
-      .post("http://localhost:5555/accounts/login", account, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-        if (
-          signInAuth({
-            auth: {
-              token: res.data.token,
-              type: "Bearer",
-            },
-            userState: { email },
-          })
-        ) {
-          toast.success(res.data.message);
-          navigate("/welcome");
-        }
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+
+    try {
+      const response = await axios.post("/auth", { account });
+      const { accessToken, message } = response.data;
+      setAuth({ email, accessToken });
+
+      toast.success(message);
+      navigate("/welcome");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data.message);
+    }
   };
+
+  useEffect(() => {
+    localStorage.setItem("persist", true);
+  }, [persist]);
 
   return (
     <Box

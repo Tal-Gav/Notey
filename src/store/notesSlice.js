@@ -1,19 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { logout } from "./authSlice"; // Import the logout action
-import { notesURL } from "../constants";
+// import useAxiosPrivate from "../hooks/useAxiosPrivate";
+// const axiosPrivate = useAxiosPrivate();
 
-const axiosConfig = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true,
-};
-
-export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-  const response = await axios.get(notesURL, axiosConfig);
-  return response.data.notes;
-});
+// export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
+//   const response = await axiosPrivate.get("/notes");
+//   return response.data.notes;
+// });
 
 const notesSlice = createSlice({
   name: "notes",
@@ -23,6 +15,10 @@ const notesSlice = createSlice({
     fetchMessage: null,
   },
   reducers: {
+    setNotes: (state, action) => {
+      state.notes = action.payload;
+    },
+
     addNote: (state, action) => {
       state.notes.push(action.payload);
     },
@@ -37,27 +33,27 @@ const notesSlice = createSlice({
       );
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchNotes.pending, (state) => {
-        state.fetchStatus = "loading";
-      })
-      .addCase(fetchNotes.fulfilled, (state, action) => {
-        state.fetchStatus = "succeeded";
-        state.fetchMessage = "Notes loaded.";
-        state.notes = action.payload;
-      })
-      .addCase(fetchNotes.rejected, (state, action) => {
-        state.fetchStatus = "failed";
-        state.fetchMessage = action.error.message;
-      })
-      .addCase(logout, (state) => {
-        state.notes = [];
-        state.fetchStatus = "idle";
-        state.fetchMessage = null;
-      });
-  },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(fetchNotes.pending, (state) => {
+  //       state.fetchStatus = "loading";
+  //     })
+  //     .addCase(fetchNotes.fulfilled, (state, action) => {
+  //       state.fetchStatus = "succeeded";
+  //       state.fetchMessage = "Notes loaded.";
+  //       state.notes = action.payload;
+  //     })
+  //     .addCase(fetchNotes.rejected, (state, action) => {
+  //       state.fetchStatus = "failed";
+  //       state.fetchMessage = action.error.message;
+  //     })
+  //     .addCase(logOut, (state) => {
+  //       state.notes = [];
+  //       state.fetchStatus = "idle";
+  //       state.fetchMessage = null;
+  //     });
+  // },
 });
-export const { addNote, deleteNote, updateNote } = notesSlice.actions;
+export const { setNotes, addNote, deleteNote, updateNote } = notesSlice.actions;
 
 export default notesSlice.reducer;

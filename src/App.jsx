@@ -1,21 +1,13 @@
 import { RouterProvider } from "react-router-dom";
-import AuthProvider from "react-auth-kit/AuthProvider";
-import createStore from "react-auth-kit/createStore";
+import { store } from "../src/store/store";
 import router from "./routes/routes";
+import { Provider } from "react-redux";
 
 function App() {
   return (
-    <AuthProvider
-      store={createStore({
-        authName: "_auth",
-        authType: "cookie",
-        cookieDomain: window.location.hostname,
-        // cookieSecure: window.location.protocol === "https:",
-        cookieSecure: true,
-      })}
-    >
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </AuthProvider>
+    </Provider>
   );
 }
 
