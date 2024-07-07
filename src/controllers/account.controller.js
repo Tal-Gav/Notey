@@ -60,24 +60,6 @@ export const signupAccount = async (req, res) => {
   }
 };
 
-export const loginAccount = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-  try {
-    const account = await Account.login(email, password);
-    const token = generateAccessToken(account._id);
-    return (
-      res
-        // .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
-        .json({ message: "Account logged in.", token })
-    );
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-};
-
 // Get all the existing accounts
 export const getAccounts = async (req, res) => {
   try {

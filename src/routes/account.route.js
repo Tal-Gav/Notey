@@ -5,7 +5,6 @@ import * as accountController from "../controllers/account.controller.js";
 const router = express.Router();
 
 router.post("/signup", accountController.signupAccount);
-// router.post("/login", accountController.loginAccount);
 router.get("/", authenticateAccount, accountController.getAccounts);
 router.get("/details", authenticateAccount, accountController.getAccountById);
 router.put("/:id", authenticateAccount, accountController.updateAccount);

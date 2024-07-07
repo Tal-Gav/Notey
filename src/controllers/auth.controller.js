@@ -41,27 +41,6 @@ export const login = async (req, res) => {
   }
 };
 
-export const verify = async (req, res) => {
-  const authHeader = req.headers.authorization || req.headers.Authorization;
-  if (!authHeader?.startsWith("Bearer ")) {
-    console.log("Unauthorized");
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-  const accessToken = authHeader.split(" ")[1];
-
-  // check json web token exists & is verified
-  jwt.verify(
-    accessToken,
-    process.env.ACCESS_TOKEN,
-    async (err, decodedToken) => {
-      if (err) return res.status(403).json({ message: "Forbidden" });
-      req.params.accountId = decodedToken.accountInfo._id;
-      console.log("authorized");
-      return res.status(200).json({ message: "Authorized" });
-    }
-  );
-};
-
 export const refresh = async (req, res) => {
   console.log("need a new aT");
   const refreshToken = req.cookies.jwt;
@@ -112,8 +91,9 @@ export const refresh = async (req, res) => {
     });
   }
 };
+
 export const logout = async (req, res) => {
-  console.log("logoutttttttttt");
+  console.log("logout");
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204); //No content
   res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
