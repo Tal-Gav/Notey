@@ -1,12 +1,12 @@
 import "./Home.css";
 import { Tilt } from "react-tilt";
-import * as React from "react";
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
 import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-clean.png";
-import { Box } from "@mui/material";
 import Purp from "../../assets/purpy.mp4";
+
 const defaultOptions = {
   reverse: false, // reverse the tilt direction
   max: 14, // max tilt rotation (degrees)
@@ -48,10 +48,6 @@ export default function HomePage() {
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        {/* <div className="gradient-background"></div>  */}
-
-        {/* <div className="grad" /> */}
-
         <div className="container">
           <Grid container spacing={5} direction="column" alignItems="center">
             <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: "18vh" }}>

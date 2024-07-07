@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MutatingDots } from "react-loader-spinner";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import saveNoteIcon from "../../assets/v.svg";
 import arrowImg from "../../assets/WelcomePage/arrow.png";
 import vortexImg from "../../assets/WelcomePage/vortex.png";
@@ -11,7 +12,6 @@ import whiteBackground from "../../assets/white.jpg";
 import { clearNoteFields } from "../../store/newNoteSlice";
 import NewNote from "../../components/NewNote";
 import { addNote } from "../../store/notesSlice";
-import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Welcome = () => {
@@ -72,7 +72,7 @@ const Welcome = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "90vh",
+        height: "calc(100vh - 7vh)",
         overflow: "hidden",
         backgroundImage: `url(${whiteBackground})`,
         backgroundSize: "cover",

@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
-import Grid from "@mui/material/Grid";
-import CreateNoteButton from "../../components/CreateNoteButton/CreateNoteButton";
+import CreateNoteButton from "../../components/CreateNoteButton";
 import Note from "../../components/Note";
 import NewNote from "../../components/NewNote";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
-import { toast } from "react-toastify";
-import { deleteNote, updateNote } from "../../store/notesSlice";
 import { MutatingDots } from "react-loader-spinner";
 import whiteBackground from "../../assets/white.jpg";
 import useFetchNotes from "../../hooks/useFetchNotes";
 
 const Notes = () => {
   const isCreateNoteMode = useSelector((state) => state.isCreateNoteMode);
-  const dispatch = useDispatch();
   const fetchNotes = useFetchNotes();
   const notes = useSelector((state) => state.notes.notes);
-  // const fetchStatus = useSelector((state) => state.notes.fetchStatus);
-  // const fetchMessage = useSelector((state) => state.notes.fetchMessage);
   const [loading, setLoading] = useState(true);
 
   const getNotes = async () => {
@@ -28,23 +22,13 @@ const Notes = () => {
     getNotes();
   }, []);
 
-  // useEffect(() => {
-  //   if (fetchStatus === "succeeded") {
-  //     setLoading(false);
-  //     toast.success(fetchMessage);
-  //   } else if (fetchStatus === "failed") {
-  //     setLoading(false);
-  //     toast.error(fetchMessage);
-  //   }
-  // }, [fetchStatus, fetchMessage]);
-
   return (
     <Box
-      display={"flex"}
-      flexWrap={"wrap"}
       sx={{
         display: "flex",
-        height: "100vh",
+        flexDirection: "column",
+        height: "calc(100vh - 7vh)",
+        overflow: "hidden",
         backgroundImage: `url(${whiteBackground})`,
         backgroundSize: "cover",
       }}

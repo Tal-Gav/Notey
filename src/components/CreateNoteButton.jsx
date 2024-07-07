@@ -1,13 +1,13 @@
-import { Box, IconButton } from "@mui/material";
-import createNoteIcon from "../../assets/create-note.svg";
-import discardNoteIcon from "../../assets/x.svg";
-import saveNoteIcon from "../../assets/v.svg";
-import { setIsCreateNoteMode } from "../../store/isCreateNoteModeSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addNote } from "../../store/notesSlice";
-import { clearNoteFields } from "../../store/newNoteSlice";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { Box, IconButton } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import createNoteIcon from "../assets/create-note.svg";
+import discardNoteIcon from "../assets/x.svg";
+import saveNoteIcon from "../assets/v.svg";
+import { setIsCreateNoteMode } from "../store/isCreateNoteModeSlice";
+import { addNote } from "../store/notesSlice";
+import { clearNoteFields } from "../store/newNoteSlice";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const CreateNoteButton = () => {
   const dispatch = useDispatch();

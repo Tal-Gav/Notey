@@ -9,7 +9,7 @@ import {
 import Home from "../pages/Home/Home";
 import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
-import NavBar from "../components/NavBar/NavBar";
+import NavBar from "../components/NavBar";
 import Notes from "../pages/Notes/Notes";
 import Account from "../pages/Account/Account";
 import NoAccess from "../pages/NoAccess/NoAccess";

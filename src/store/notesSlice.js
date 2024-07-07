@@ -1,18 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import useAxiosPrivate from "../hooks/useAxiosPrivate";
-// const axiosPrivate = useAxiosPrivate();
-
-// export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-//   const response = await axiosPrivate.get("/notes");
-//   return response.data.notes;
-// });
 
 const notesSlice = createSlice({
   name: "notes",
   initialState: {
     notes: [],
-    fetchStatus: "idle",
-    fetchMessage: null,
   },
   reducers: {
     setNotes: (state, action) => {
@@ -33,27 +24,8 @@ const notesSlice = createSlice({
       );
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(fetchNotes.pending, (state) => {
-  //       state.fetchStatus = "loading";
-  //     })
-  //     .addCase(fetchNotes.fulfilled, (state, action) => {
-  //       state.fetchStatus = "succeeded";
-  //       state.fetchMessage = "Notes loaded.";
-  //       state.notes = action.payload;
-  //     })
-  //     .addCase(fetchNotes.rejected, (state, action) => {
-  //       state.fetchStatus = "failed";
-  //       state.fetchMessage = action.error.message;
-  //     })
-  //     .addCase(logOut, (state) => {
-  //       state.notes = [];
-  //       state.fetchStatus = "idle";
-  //       state.fetchMessage = null;
-  //     });
-  // },
 });
+
 export const { setNotes, addNote, deleteNote, updateNote } = notesSlice.actions;
 
 export default notesSlice.reducer;

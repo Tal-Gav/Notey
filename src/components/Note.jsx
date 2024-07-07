@@ -5,13 +5,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Tooltip } from "react-tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { Tooltip } from "react-tooltip";
 import { deleteNote, updateNote } from "../store/notesSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Note = ({ note }) => {

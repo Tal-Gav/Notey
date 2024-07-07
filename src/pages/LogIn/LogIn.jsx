@@ -5,19 +5,16 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import whiteBackground from "../../assets/white.jpg";
-import noteyLogo from "../../assets/notey-purple.png";
 import { Divider } from "@mui/material";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import whiteBackground from "../../assets/white.jpg";
+import noteyLogo from "../../assets/notey-purple.png";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
-import { useEffect } from "react";
 
 const Login = () => {
-  const { setAuth, persist } = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const submittedForm = (event) => {
     event.preventDefault();
@@ -43,10 +40,6 @@ const Login = () => {
       toast.error(error.response?.data.message);
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem("persist", true);
-  }, [persist]);
 
   return (
     <Box

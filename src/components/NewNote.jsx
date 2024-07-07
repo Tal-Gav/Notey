@@ -1,13 +1,6 @@
-import {
-  Box,
-  Container,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
-
-import { setNewNoteTitle, setNewNoteContent } from "../store/newNoteSlice";
 import { useDispatch } from "react-redux";
+import { Box, Container, TextField } from "@mui/material";
+import { setNewNoteTitle, setNewNoteContent } from "../store/newNoteSlice";
 
 const NewNote = () => {
   const dispatch = useDispatch();
