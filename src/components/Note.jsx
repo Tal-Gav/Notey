@@ -39,8 +39,6 @@ const Note = ({ note }) => {
   const handleNoteDelete = async () => {
     try {
       const res = await axiosPrivate.delete("/notes/" + noteId);
-      console.log(res);
-
       dispatch(deleteNote(noteId));
       toast.success(res.data.message);
     } catch (error) {

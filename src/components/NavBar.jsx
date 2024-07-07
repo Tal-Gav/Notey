@@ -47,7 +47,6 @@ export default function NavBar() {
   };
 
   const handleUserMenuClick = (setting) => {
-    console.log(typeof setting);
     if (setting === "Logout") {
       logOutUser();
     } else {

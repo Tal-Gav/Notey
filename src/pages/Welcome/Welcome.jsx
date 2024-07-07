@@ -27,7 +27,6 @@ const Welcome = () => {
   const newNoteContent = useSelector((state) => state.newNote.content);
 
   const setAccountData = (account) => {
-    console.log(account);
     setId(account._id);
     setEmail(account.email);
     setFirstName(account.firstName);
@@ -39,7 +38,6 @@ const Welcome = () => {
       const res = await axiosPrivate.get("/accounts/details");
       setAccountData(res.data.account);
     } catch (error) {
-      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -56,7 +54,6 @@ const Welcome = () => {
 
       toast.success(res.data.message);
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };

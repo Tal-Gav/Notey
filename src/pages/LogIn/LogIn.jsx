@@ -36,7 +36,6 @@ const Login = () => {
       toast.success(message);
       navigate("/welcome");
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data.message);
     }
   };

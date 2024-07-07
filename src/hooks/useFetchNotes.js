@@ -10,11 +10,9 @@ const useFetchNotes = () => {
   const fetchNotes = async () => {
     try {
       const response = await axiosPrivate.get("/notes");
-      console.log(response.data);
       dispatch(setNotes(response.data.notes));
       toast.success("Noted loaded");
     } catch (error) {
-      console.error(error);
       toast.error(error.response.data.message);
     }
   };

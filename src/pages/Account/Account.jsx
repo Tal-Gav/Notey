@@ -32,7 +32,6 @@ export default function Account() {
   };
 
   const setAccountData = (account) => {
-    console.log(account);
     setId(account._id);
     setEmail(account.email);
     setFirstName(account.firstName);
