@@ -63,6 +63,7 @@ export const verify = async (req, res) => {
 };
 
 export const refresh = async (req, res) => {
+  console.log("need a new aT");
   const refreshToken = req.cookies.jwt;
 
   try {

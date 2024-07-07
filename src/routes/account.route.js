@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.post("/signup", accountController.signupAccount);
 // router.post("/login", accountController.loginAccount);
-router.get("/", accountController.getAccounts);
+router.get("/", authenticateAccount, accountController.getAccounts);
 router.get("/details", authenticateAccount, accountController.getAccountById);
-router.put("/:id", accountController.updateAccount);
-router.delete("/:id", accountController.deleteAccountById);
+router.put("/:id", authenticateAccount, accountController.updateAccount);
+router.delete("/:id", authenticateAccount, accountController.deleteAccountById);
 
 export default router;

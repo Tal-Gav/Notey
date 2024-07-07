@@ -1,5 +1,8 @@
 import { Account } from "../models/account.model.js";
-import { generateAccessToken } from "../middlewares/auth.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../middlewares/auth.js";
 
 // Create a new account
 export const signupAccount = async (req, res) => {
@@ -24,20 +27,35 @@ export const signupAccount = async (req, res) => {
     };
 
     const account = await Account.create(newAccount);
-    const token = generateAccessToken(account._id);
 
-    return (
-      res
-        // .cookie("jwt", token, { httpOnly: true, maxAge: "3600000" })
-        .json({ message: "Account created.", token })
-    );
+    const accountInfo = {
+      _id: account._id,
+      email: account.email,
+      firstName: account.firstName,
+      lastName: account.lastName,
+    };
+
+    const refreshToken = generateRefreshToken(account._id);
+    const accessToken = generateAccessToken(accountInfo);
+
+    // Create secure cookie with refresh token
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true, //accessible only by web server
+      secure: true, //change true for https
+      sameSite: "None", //cross-site cookie
+      maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry: set to match rT
+    });
+    res.status(200);
+    // Send accessToken containing username and roles
+    console.log("Account created.");
+    res.json({ message: "Account created.", accessToken });
   } catch (error) {
     console.log(error.message);
 
     if (error.code === 11000) {
-      res.status(500).send({ message: "This email is already in use." });
+      res.status(500).json({ message: "This email is already in use." });
     } else {
-      res.status(500).send({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
   }
 };
