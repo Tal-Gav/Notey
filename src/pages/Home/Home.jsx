@@ -1,8 +1,8 @@
 import "./Home.css";
 import { Tilt } from "react-tilt";
 import Grid from "@mui/material/Grid";
-import { Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Button } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-clean.png";
 import Purp from "../../assets/purpy.mp4";
@@ -20,6 +20,8 @@ const defaultOptions = {
 };
 
 export default function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div
@@ -77,18 +79,55 @@ export default function HomePage() {
               }}
             >
               <Tilt options={defaultOptions}>
-                <Link to="/signup" className="no-underscore">
-                  <div className="sign-up-btn font-tt-fors-regular">
-                    <div className="btn-text">Sign Up</div>
-                  </div>
-                </Link>
+                <Button
+                  type="normal"
+                  variant="contained"
+                  onClick={() => navigate("/signup")}
+                  sx={{
+                    fontSize: "1.4em",
+                    borderRadius: "2.9em",
+                    width: "12vw",
+                    height: "9vh",
+                    backgroundColor: "#6516cc",
+                    "&:hover": {
+                      backgroundColor: "#6F00FF",
+                      boxShadow: "none",
+                    },
+                    "&:active": {
+                      boxShadow: "none",
+                      backgroundColor: "#6F00FF",
+                    },
+                  }}
+                >
+                  Sign Up
+                </Button>
               </Tilt>
               <Tilt options={defaultOptions}>
-                <Link to="/login" className="no-underscore">
-                  <div className="log-in-btn font-tt-fors-regular">
-                    <div className="btn-text">Log In</div>
-                  </div>
-                </Link>
+                <Button
+                  type="normal"
+                  variant="outlined"
+                  onClick={() => navigate("/login")}
+                  sx={{
+                    border: "0.15em solid white",
+                    color: "white",
+                    fontSize: "1.4em",
+                    borderRadius: "2.9em",
+                    width: "12vw",
+                    height: "9vh",
+                    boxShadow:
+                      "0px 0px 12px 0px #edddfe, inset 0px 0px 12px 0px #ebddfe",
+                    "&:hover": {
+                      border: "0.15em solid white",
+                    },
+                    "&:active": {
+                      boxShadow: "none",
+                      backgroundColor: "#6F00FF",
+                      border: "0.15em solid #6516CC",
+                    },
+                  }}
+                >
+                  Log In
+                </Button>
               </Tilt>
             </Grid>
           </Grid>

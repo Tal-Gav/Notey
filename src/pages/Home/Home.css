@@ -67,8 +67,7 @@
   border: 0.2rem solid #ffffff;
   /* border: 0.5vh solid #b8faf5; */
   background-color: transparent; /* Add this to ensure the shadow is visible */
-  box-shadow: 0px 0px 12px 0px #edddfe,
-    /* Outer shadow */ inset 0px 0px 12px 0px #ebddfe; /* Inner shadow */
+  box-shadow: 0px 0px 12px 0px #edddfe, inset 0px 0px 12px 0px #ebddfe;
   cursor: pointer;
 }
 
