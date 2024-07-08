@@ -118,6 +118,8 @@ export default function HomePage() {
                       "0px 0px 12px 0px #edddfe, inset 0px 0px 12px 0px #ebddfe",
                     "&:hover": {
                       border: "0.15em solid white",
+                      boxShadow:
+                        "0px 0px 16px 0px #edddfe, inset 0px 0px 16px 0px #ebddfe",
                     },
                     "&:active": {
                       boxShadow: "none",
