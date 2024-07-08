@@ -22,7 +22,6 @@ const Welcome = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [loading, setLoading] = useState(true);
   const newNoteTitle = useSelector((state) => state.newNote.title);
   const newNoteContent = useSelector((state) => state.newNote.content);
 
@@ -36,10 +35,10 @@ const Welcome = () => {
   const getAccountData = async () => {
     try {
       const res = await axiosPrivate.get("/accounts/details");
+      console.log("is it");
       setAccountData(res.data.account);
     } catch (error) {
     } finally {
-      setLoading(false);
     }
   };
 
@@ -69,103 +68,89 @@ const Welcome = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "calc(100vh - 7vh)",
-        overflow: "hidden",
-        backgroundImage: `url(${whiteBackground})`,
-        backgroundSize: "cover",
+        height: "90%",
       }}
     >
-      {loading ? (
-        <MutatingDots
-          visible={true}
-          height="100"
-          width="100"
-          color="#5730bf"
-          secondaryColor="#5730bf"
-          radius="12.5"
-          ariaLabel="mutating-dots-loading"
-        />
-      ) : (
-        <Box pt={2} pl={4} flexDirection={"row"} display={"flex"}>
+      <Box pl={4} flexDirection={"row"} display={"flex"}>
+        <Box>
           <Box>
-            <Box>
-              <Typography
-                color={"#6F00FF"}
-                fontSize={"6em"}
-                fontFamily={"Outfit-ExtraBold"}
-              >
-                Hi {firstName}!
-              </Typography>
-              <Typography
-                color={"#6F00FF"}
-                fontSize={"4em"}
-                fontFamily={"Outfit-Regular"}
-                letterSpacing={2}
-              >
-                Start your first note now
-              </Typography>
-            </Box>
+            <Typography
+              color={"#6F00FF"}
+              fontSize={"6em"}
+              fontFamily={"Outfit-ExtraBold"}
+            >
+              Hi {firstName}!
+            </Typography>
+            <Typography
+              color={"#6F00FF"}
+              fontSize={"3.4em"}
+              fontFamily={"Outfit-Regular"}
+              letterSpacing={2}
+            >
+              Start your first note now
+            </Typography>
+          </Box>
 
-            <Box display={"flex"} pl={6} pt={2}>
-              <NewNote />
-              <Box display="flex" alignItems="center" justifyContent="center">
-                <IconButton
-                  form="note"
-                  type="submit"
-                  onClick={handleSaveNote}
-                  style={{
-                    height: "50px", // Set a fixed height
-                    width: "50px", // Set a fixed width
-                  }}
-                >
-                  <img
-                    src={saveNoteIcon}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      filter:
-                        "invert(10%) sepia(100%) saturate(5422%) hue-rotate(267deg) brightness(108%) contrast(128%)",
-                    }}
-                    alt="Save Note"
-                  />
-                </IconButton>
-              </Box>
-              <Box>
+          <Box display={"flex"} pl={6} pt={2}>
+            <NewNote />
+            <Box display="flex" alignItems="center" justifyContent="center">
+              <IconButton
+                form="note"
+                type="submit"
+                onClick={handleSaveNote}
+                style={{
+                  height: "50px", // Set a fixed height
+                  width: "50px", // Set a fixed width
+                }}
+              >
                 <img
-                  src={arrowImg}
+                  src={saveNoteIcon}
                   style={{
-                    width: "20vh",
-                    height: "20vh",
+                    width: "100%",
+                    height: "100%",
+                    filter:
+                      "invert(10%) sepia(100%) saturate(5422%) hue-rotate(267deg) brightness(108%) contrast(128%)",
                   }}
                   alt="Save Note"
                 />
-              </Box>
+              </IconButton>
             </Box>
-          </Box>
-          <Box>
-            <Box pl={45}>
+            <Box>
               <img
-                src={vortexImg}
+                src={arrowImg}
                 style={{
-                  width: "44vh",
-                  height: "40vh",
-                }}
-                alt="Save Note"
-              />
-            </Box>
-            <Box pl={5}>
-              <img
-                src={noteImg}
-                style={{
-                  width: "54vh",
-                  height: "50vh",
+                  width: "20vh",
+                  height: "20vh",
                 }}
                 alt="Save Note"
               />
             </Box>
           </Box>
         </Box>
-      )}
+        <Box>
+          <Box pl={55}>
+            <img
+              src={vortexImg}
+              style={{
+                width: "44vh",
+                height: "40vh",
+                transform: "rotate(-90deg)",
+              }}
+              alt="Save Note"
+            />
+          </Box>
+          <Box pl={20}>
+            <img
+              src={noteImg}
+              style={{
+                width: "52vh",
+                height: "48vh",
+              }}
+              alt="Save Note"
+            />
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 };

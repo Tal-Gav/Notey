@@ -28,7 +28,7 @@ export default function HomePage() {
         className="white-background"
         style={{
           backgroundImage: `url(${whiteBackground})`,
-          opacity: "0.15",
+          opacity: "0.20",
         }}
       />
       <video

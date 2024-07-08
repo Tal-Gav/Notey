@@ -5,6 +5,7 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
   const [persist, setPersist] = useState(true);
+
   return (
     <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
       {children}

@@ -1,15 +1,11 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-const RequireAuth = () => {
+// Checking for an Access Token, and then proceeding to the requested route. If an Access Token doesn't exist, redirect to the login screen.
+const PrivateRoute = () => {
   const { auth } = useAuth();
-  const location = useLocation();
-
-  return auth?.accessToken ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
+  console.log(auth?.accessToken);
+  return auth?.accessToken ? <Outlet /> : <Navigate to="/home" replace />;
 };
 
-export default RequireAuth;
+export default PrivateRoute;

@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import {
   Outlet,
@@ -14,10 +13,10 @@ import Notes from "../pages/Notes/Notes";
 import Account from "../pages/Account/Account";
 import NoAccess from "../pages/NoAccess/NoAccess";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
-
 import Welcome from "../pages/Welcome/Welcome";
 import PrivateRoute from "../components/PrivateRoute";
 import PersistLogin from "../components/PersistLogin";
+import Background from "../components/Background";
 
 // Layout for public routes
 const PublicLayout = () => (
@@ -29,6 +28,7 @@ const PublicLayout = () => (
 // Layout for protected routes
 const ProtectedLayout = () => (
   <>
+    <Background />
     <NavBar />
     <Outlet />
   </>

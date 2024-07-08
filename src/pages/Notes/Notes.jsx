@@ -23,16 +23,7 @@ const Notes = () => {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "calc(100vh - 7vh)",
-        overflow: "hidden",
-        backgroundImage: `url(${whiteBackground})`,
-        backgroundSize: "cover",
-      }}
-    >
+    <Box display={"flex"} flexDirection={"row"} flexWrap={"wrap"}>
       {loading ? (
         <MutatingDots
           visible={true}
