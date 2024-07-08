@@ -1,2 +1,2 @@
-Notey - Note taking app.
-# MERN Stack + JWT Authentication
+# Notey - Note taking app.
+MERN Stack + JWT Authentication
