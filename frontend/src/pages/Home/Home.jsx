@@ -1,11 +1,13 @@
 import "./Home.css";
 import { Tilt } from "react-tilt";
 import Grid from "@mui/material/Grid";
-import { Box, Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-clean.png";
 import Purp from "../../assets/purpy.mp4";
+import { Typography } from "@mui/material";
 
 const defaultOptions = {
   reverse: false, // reverse the tilt direction
@@ -24,7 +26,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div
+      <Box
         className="white-background"
         style={{
           backgroundImage: `url(${whiteBackground})`,
@@ -48,92 +50,101 @@ export default function HomePage() {
       </video>
 
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        display="flex"
+        height={"100%"}
+        alignItems="center"
+        justifyContent={"center"}
+        flexDirection="column"
+        gap={{ xs: 8, md: 10 }}
       >
-        <div className="container">
-          <Grid container spacing={5} direction="column" alignItems="center">
-            <Grid item xl={6} md={6} sm={12} xs={12} sx={{ marginTop: "18vh" }}>
-              <img
-                className="notey-logo shadowed"
-                src={noteyLogo}
-                alt="Logo"
-                draggable="false"
-              />
-            </Grid>
-            <Grid item xl={6} md={6} sm={12} xs={12}>
-              <div className="desc typewriter font-sanssemi-extralight">
-                Write down anything. easily.
-              </div>
-            </Grid>
-            <Grid
-              item
-              xl={6}
-              md={6}
-              sm={12}
-              xs={12}
+        <img
+          className="notey-logo shadowed"
+          src={noteyLogo}
+          alt="Logo"
+          draggable="false"
+          style={{ width: "80%", maxWidth: "400px" }}
+        />
+        <Box
+          display={"flex"}
+          direction="column"
+          alignItems="center"
+          justifyContent={"center"}
+        >
+          <Typography
+            className="typewriter"
+            fontFamily={"SansSemi-ExtraLight"}
+            color={"white"}
+            fontSize={{
+              xs: "1.5em",
+              sm: "2em",
+              md: "2.6em",
+              lg: "3em",
+              xl: "4em",
+            }}
+          >
+            Write down anything. easily.
+          </Typography>
+        </Box>
+        <Box
+          display="flex"
+          gap={{ xs: 2, md: 4 }}
+          alignItems="center"
+          flexDirection={{ xs: "column", sm: "row" }}
+        >
+          <Tilt options={defaultOptions}>
+            <Button
+              type="normal"
+              variant="contained"
+              onClick={() => navigate("/signup")}
               sx={{
-                marginTop: "6vh",
-                display: "flex",
-                justifyContent: "center",
-                gap: "8vh",
+                fontSize: { xs: "1.6em", sm: "1.7em", md: "1.2em" },
+                borderRadius: "2.9em",
+                width: { xs: "50vw", sm: "30vw", md: "12vw" },
+                height: { xs: "8vh", md: "9vh" },
+                backgroundColor: "#6516cc",
+                "&:hover": {
+                  backgroundColor: "#6F00FF",
+                  boxShadow: "none",
+                },
+                "&:active": {
+                  boxShadow: "none",
+                  backgroundColor: "#6F00FF",
+                },
               }}
             >
-              <Tilt options={defaultOptions}>
-                <Button
-                  type="normal"
-                  variant="contained"
-                  onClick={() => navigate("/signup")}
-                  sx={{
-                    fontSize: "1.4em",
-                    borderRadius: "2.9em",
-                    width: "12vw",
-                    height: "9vh",
-                    backgroundColor: "#6516cc",
-                    "&:hover": {
-                      backgroundColor: "#6F00FF",
-                      boxShadow: "none",
-                    },
-                    "&:active": {
-                      boxShadow: "none",
-                      backgroundColor: "#6F00FF",
-                    },
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </Tilt>
-              <Tilt options={defaultOptions}>
-                <Button
-                  type="normal"
-                  variant="outlined"
-                  onClick={() => navigate("/login")}
-                  sx={{
-                    border: "0.15em solid white",
-                    color: "white",
-                    fontSize: "1.4em",
-                    borderRadius: "2.9em",
-                    width: "12vw",
-                    height: "9vh",
-                    boxShadow:
-                      "0px 0px 12px 0px #edddfe, inset 0px 0px 12px 0px #ebddfe",
-                    "&:hover": {
-                      border: "0.15em solid white",
-                      boxShadow:
-                        "0px 0px 16px 0px #edddfe, inset 0px 0px 16px 0px #ebddfe",
-                    },
-                    "&:active": {
-                      boxShadow: "none",
-                      backgroundColor: "#6F00FF",
-                      border: "0.15em solid #6516CC",
-                    },
-                  }}
-                >
-                  Log In
-                </Button>
-              </Tilt>
-            </Grid>
-          </Grid>
-        </div>
+              Sign Up
+            </Button>
+          </Tilt>
+          <Tilt options={defaultOptions}>
+            <Button
+              type="normal"
+              variant="outlined"
+              onClick={() => navigate("/login")}
+              sx={{
+                border: "0.15em solid white",
+                color: "white",
+                fontSize: { xs: "1.6em", sm: "1.7em", md: "1.2em" },
+                borderRadius: "2.9em",
+                width: { xs: "50vw", sm: "30vw", md: "12vw" },
+                height: { xs: "8vh", md: "9vh" },
+                boxShadow:
+                  "0px 0px 12px 0px #edddfe, inset 0px 0px 12px 0px #ebddfe",
+                "&:hover": {
+                  border: "0.15em solid white",
+                  boxShadow:
+                    "0px 0px 16px 0px #edddfe, inset 0px 0px 16px 0px #ebddfe",
+                },
+                "&:active": {
+                  boxShadow: "none",
+                  backgroundColor: "#6F00FF",
+                  border: "0.15em solid #6516CC",
+                },
+              }}
+            >
+              Log In
+            </Button>
+          </Tilt>
+        </Box>
       </Box>
     </>
   );

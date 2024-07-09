@@ -42,34 +42,36 @@ const Login = () => {
 
   return (
     <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        backgroundImage: `url(${whiteBackground})`,
-        backgroundSize: "cover",
-      }}
+      display="flex"
+      height={"100%"}
+      alignItems="center"
+      justifyContent={"center"}
+      flexDirection="column"
+      gap={{ xs: 8, md: 10 }}
     >
       <Box
         sx={{
           display: "flex",
-          width: "25vw",
-          height: "80vh",
+          width: { xs: "85%", sm: "70%", md: "50%" },
+          maxWidth: "400px",
+          height: { xs: "auto", sm: "80%", md: "80%" },
+          minHeight: { xs: "auto", sm: "300px", md: "400px" },
           borderRadius: "2em",
           boxShadow: "0px 0px 20px 0px #5730bfb3",
           bgcolor: "white",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          p: { xs: 2, sm: 3, md: 4 },
         }}
       >
         <Box
-          pb={6}
+          pb={{ xs: 2, sm: 2, md: 4 }}
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            width: "100%",
           }}
         >
           <img
@@ -77,18 +79,18 @@ const Login = () => {
             src={noteyLogo}
             alt="Logo"
             draggable="false"
-            style={{ width: "17vw" }}
+            style={{ width: "60%", maxWidth: "200px", height: "auto" }}
           />
           <Box pt={2} />
           <Divider width={"120"} color={"#A1A1A1"} sx={{ opacity: "0.5" }} />
         </Box>
 
-        <Container component="main" maxWidth="xs">
+        <Box width={"90%"}>
           <CssBaseline />
           <Typography
             component="h1"
             variant="h6"
-            fontSize={"1em"}
+            fontSize={{ xs: "1em", md: "1.2em" }}
             color={"#A1A1A1"}
           >
             Log in to your Notey account
@@ -151,10 +153,11 @@ const Login = () => {
               variant="contained"
               color="primary"
               sx={{
-                width: "10vw",
+                width: { xs: "80%", sm: "70%", md: "10vw" },
                 borderRadius: "2em",
                 background:
                   "radial-gradient(50% 50% at 50% 50%, #6037d0 50%, #6037d0 100%)",
+                fontSize: { xs: "0.9em", md: "1em" },
               }}
             >
               Log in
@@ -164,8 +167,9 @@ const Login = () => {
             <Box
               sx={{
                 display: "flex",
-                paddingRight: "20",
                 flexDirection: "row",
+                justifyContent: "center",
+                gap: 1,
               }}
             >
               <Typography color={"#A1A1A1"}>
@@ -174,7 +178,6 @@ const Login = () => {
               <Typography
                 onClick={() => navigate("/signup")}
                 sx={{ cursor: "pointer" }}
-                pl={1}
                 color={"#6F00FF"}
               >
                 Sign up
@@ -182,7 +185,7 @@ const Login = () => {
             </Box>
           </form>
           <Box mt={5}></Box>
-        </Container>
+        </Box>
       </Box>
     </Box>
   );

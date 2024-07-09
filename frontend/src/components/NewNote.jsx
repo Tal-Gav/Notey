@@ -10,18 +10,22 @@ const NewNote = () => {
         m={2}
         sx={{
           display: "flex",
-          width: "20vw",
-          height: "20vw",
-          borderRadius: "2em",
-          boxShadow: "0px 0px 20px 0px #5730bfb3",
-          bgcolor: "white",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Box pt={2} />
-        <Container component="main" maxWidth="xs">
-          <Box pt={1.2} />
+        <Box
+          p={2.5}
+          sx={{
+            width: "20vw", // Adjust to maintain square shape
+            height: "20vw", // Adjust to maintain square shape
+            borderRadius: "2em",
+            boxShadow: "0px 0px 20px 0px #5730bfb3",
+            bgcolor: "white",
+            marginBottom: "20px", // Add margin bottom for spacing between notes
+          }}
+        >
+          <Box pt={3.5} />
           <TextField
             onChange={(e) => dispatch(setNewNoteTitle(e.target.value))}
             variant="outlined"
@@ -67,7 +71,7 @@ const NewNote = () => {
               },
             }}
           />
-        </Container>
+        </Box>
       </Box>
     </>
   );

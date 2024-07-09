@@ -10,31 +10,6 @@
   z-index: -1;
 }
 
-.grad {
-  z-index: -1;
-  background-size: cover; /* Stretch the image */
-  background-position: center center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #8907bef2 200%),
-    linear-gradient(180deg, #150886f2 0%, rgba(3, 29, 68, 0.29) 100%);
-  animation: gradient 5s ease infinite;
-}
-.container {
-  /* flex-direction: column; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.buttons-container {
-  justify-content: space-between;
-  display: flex;
-  width: 50%;
-}
-
 .notey-logo {
   width: 30rem;
 }

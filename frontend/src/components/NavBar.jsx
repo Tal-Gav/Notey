@@ -19,9 +19,6 @@ import { CssBaseline, useScrollTrigger } from "@mui/material";
 
 function ElevationScroll(props) {
   const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -76,19 +73,15 @@ export default function ElevateAppBar(props) {
       <ElevationScroll>
         <AppBar sx={{ bgcolor: "#6516cc", top: 0, zIndex: 1000 }}>
           <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
+            <Toolbar
+              disableGutters
+              sx={{ display: "flex", alignItems: "center", height: "64px" }}
+            >
+              <Box
                 sx={{
-                  mr: 2,
+                  height: "40%",
                   display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textDecoration: "none",
+                  mr: 2,
                 }}
               >
                 <img
@@ -96,10 +89,10 @@ export default function ElevateAppBar(props) {
                   alt="Logo"
                   className="note-logo"
                   style={{
-                    width: "10vh",
+                    height: "100%",
                   }}
                 />
-              </Typography>
+              </Box>
 
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton

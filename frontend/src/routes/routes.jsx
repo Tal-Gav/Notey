@@ -21,7 +21,9 @@ import Background from "../components/Background";
 // Layout for public routes
 const PublicLayout = () => (
   <>
+    <Background />
     <Outlet />
+    {/* <NavBar /> */}
   </>
 );
 

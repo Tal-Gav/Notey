@@ -1,10 +1,4 @@
-import {
-  Box,
-  Container,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, IconButton, TextField, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import { useState } from "react";
@@ -47,90 +41,94 @@ const Note = ({ note }) => {
   };
 
   return (
-    <>
+    <Box
+      m={2}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <Box
-        m={2}
+        p={3}
         sx={{
-          display: "flex",
-          width: "20vw",
-          height: "20vw",
+          width: "20vw", // Adjust to maintain square shape
+          height: "20vw", // Adjust to maintain square shape
           borderRadius: "2em",
           boxShadow: "0px 0px 20px 0px #5730bfb3",
           bgcolor: "white",
-          flexDirection: "column",
-          alignItems: "center",
+          marginBottom: "20px", // Add margin bottom for spacing between notes
         }}
         data-tooltip-id={`${noteId}-tooltip`}
         data-tooltip-place="bottom"
       >
+        {note && (
+          <Typography fontSize={"0.8em"} color={"#A1A1A1"}>
+            id: {noteId}
+          </Typography>
+        )}
+        <Box pt={1.2} />
+        <TextField
+          onChange={(e) => setNoteTitle(e.target.value)}
+          variant="outlined"
+          value={noteTitle}
+          label="Title"
+          fullWidth // Ensure fullWidth is set to true
+          InputProps={{
+            style: {
+              borderRadius: "1em",
+            },
+          }}
+          sx={{
+            "& label.Mui-focused": {
+              color: "#6F00FF",
+            },
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "#6F00FF",
+              },
+            },
+          }}
+        />
         <Box pt={2} />
-        <Container component="main" maxWidth="xs">
-          {note && (
-            <Typography fontSize={"0.8em"} color={"#A1A1A1"}>
-              id: {noteId}
-            </Typography>
-          )}
-          <Box pt={1.2} />
-          <TextField
-            onChange={(e) => setNoteTitle(e.target.value)}
-            variant="outlined"
-            value={noteTitle}
-            label="Title"
-            fullWidth
-            InputProps={{
-              style: {
-                borderRadius: "1em",
+        <TextField
+          variant="outlined"
+          onChange={(e) => setNoteContent(e.target.value)}
+          value={noteContent}
+          label="Content"
+          fullWidth // Ensure fullWidth is set to true
+          multiline
+          rows={5}
+          InputProps={{
+            style: {
+              borderRadius: "1em",
+            },
+          }}
+          sx={{
+            "& label.Mui-focused": {
+              color: "#6F00FF",
+            },
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "#6F00FF",
               },
-            }}
-            sx={{
-              "& label.Mui-focused": {
-                color: "#6F00FF",
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#6F00FF",
-                },
-              },
-            }}
-          />
-          <Box pt={2} />
-          <TextField
-            variant="outlined"
-            onChange={(e) => setNoteContent(e.target.value)}
-            value={noteContent}
-            label="Content"
-            fullWidth
-            multiline
-            rows={5}
-            InputProps={{
-              style: {
-                borderRadius: "1em",
-              },
-            }}
-            sx={{
-              "& label.Mui-focused": {
-                color: "#6F00FF",
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#6F00FF",
-                },
-              },
-            }}
-          />
-        </Container>
+            },
+          }}
+        />
+        {note && (
+          <Box sx={{ display: "flex", justifyContent: "center", pt: 2 }}>
+            <Tooltip id={`${noteId}-tooltip`} clickable>
+              <IconButton onClick={handleNoteDelete}>
+                <DeleteIcon sx={{ color: "white" }} />
+              </IconButton>
+              <IconButton onClick={handleNoteUpdate}>
+                <SaveRoundedIcon sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        )}
       </Box>
-      {note && (
-        <Tooltip id={`${noteId}-tooltip`} clickable>
-          <IconButton onClick={handleNoteDelete}>
-            <DeleteIcon sx={{ color: "white" }} />
-          </IconButton>
-          <IconButton onClick={handleNoteUpdate}>
-            <SaveRoundedIcon sx={{ color: "white" }} />
-          </IconButton>
-        </Tooltip>
-      )}
-    </>
+    </Box>
   );
 };
 
