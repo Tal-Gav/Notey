@@ -4,10 +4,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { Divider } from "@mui/material";
 import { toast } from "react-toastify";
-import whiteBackground from "../../assets/white.jpg";
 import noteyLogo from "../../assets/notey-purple.png";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
@@ -31,7 +29,7 @@ const Login = () => {
     try {
       const response = await axios.post("/auth", { account });
       const { accessToken, message } = response.data;
-      setAuth({ email, accessToken });
+      setAuth({ email: account.email, accessToken });
 
       toast.success(message);
       navigate("/welcome");
@@ -52,9 +50,19 @@ const Login = () => {
       <Box
         sx={{
           display: "flex",
-          width: { xs: "85%", sm: "70%", md: "50%" },
+          width: { xs: "85%", sm: "70%", smd: "50%" },
           maxWidth: "400px",
-          height: { xs: "auto", sm: "80%", md: "80%" },
+          height: {
+            xs: "auto",
+            sm: "80%",
+            md: "80%",
+            "@media (min-height:600px) and (min-height:600px)": {
+              height: "80%",
+            },
+            "@media (min-width:375px) and (min-height:900px)": {
+              height: "55%",
+            },
+          },
           minHeight: { xs: "auto", sm: "300px", md: "400px" },
           borderRadius: "2em",
           boxShadow: "0px 0px 20px 0px #5730bfb3",

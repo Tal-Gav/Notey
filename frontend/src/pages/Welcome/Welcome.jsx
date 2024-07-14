@@ -1,14 +1,13 @@
-import { Box, CircularProgress, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { MutatingDots } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import saveNoteIcon from "../../assets/v.svg";
 import arrowImg from "../../assets/WelcomePage/arrow.png";
 import vortexImg from "../../assets/WelcomePage/vortex.png";
 import noteImg from "../../assets/WelcomePage/note.png";
-import whiteBackground from "../../assets/white.jpg";
 import { clearNoteFields } from "../../store/newNoteSlice";
 import NewNote from "../../components/NewNote";
 import { addNote } from "../../store/notesSlice";
@@ -18,28 +17,20 @@ const Welcome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
-  const [id, setId] = useState("");
-  const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const newNoteTitle = useSelector((state) => state.newNote.title);
   const newNoteContent = useSelector((state) => state.newNote.content);
+  const isLargeScreen = useMediaQuery("(min-width:1440px)");
 
   const setAccountData = (account) => {
-    setId(account._id);
-    setEmail(account.email);
     setFirstName(account.firstName);
-    setLastName(account.lastName);
   };
 
   const getAccountData = async () => {
     try {
       const res = await axiosPrivate.get("/accounts/details");
-      console.log("is it");
       setAccountData(res.data.account);
-    } catch (error) {
-    } finally {
-    }
+    } catch (error) {}
   };
 
   const handleSaveNote = async () => {
@@ -71,19 +62,19 @@ const Welcome = () => {
         height: "90%",
       }}
     >
-      <Box pl={4} flexDirection={"row"} display={"flex"}>
+      <Box pl={4} flexDirection={"row"} display={"flex"} flexWrap="wrap">
         <Box>
           <Box>
             <Typography
               color={"#6F00FF"}
-              fontSize={"6em"}
+              fontSize={{ xs: "3em", sm: "4em", md: "6em" }}
               fontFamily={"Outfit-ExtraBold"}
             >
               Hi {firstName}!
             </Typography>
             <Typography
               color={"#6F00FF"}
-              fontSize={"3.4em"}
+              fontSize={{ xs: "1.8em", sm: "2.4em", md: "3.4em" }}
               fontFamily={"Outfit-Regular"}
               letterSpacing={2}
             >
@@ -91,7 +82,7 @@ const Welcome = () => {
             </Typography>
           </Box>
 
-          <Box display={"flex"} pl={6} pt={2}>
+          <Box display={"flex"} pl={{ xs: 2, sm: 4, md: 6 }} pt={2}>
             <NewNote />
             <Box display="flex" alignItems="center" justifyContent="center">
               <IconButton
@@ -99,8 +90,8 @@ const Welcome = () => {
                 type="submit"
                 onClick={handleSaveNote}
                 style={{
-                  height: "50px", // Set a fixed height
-                  width: "50px", // Set a fixed width
+                  height: "50px",
+                  width: "50px",
                 }}
               >
                 <img
@@ -115,41 +106,43 @@ const Welcome = () => {
                 />
               </IconButton>
             </Box>
-            <Box>
+            <Box display={{ xs: "none", sm: "none", md: "block" }}>
               <img
                 src={arrowImg}
                 style={{
                   width: "20vh",
                   height: "20vh",
                 }}
-                alt="Save Note"
+                alt="Arrow"
               />
             </Box>
           </Box>
         </Box>
-        <Box>
-          <Box pl={55}>
-            <img
-              src={vortexImg}
-              style={{
-                width: "44vh",
-                height: "40vh",
-                transform: "rotate(-90deg)",
-              }}
-              alt="Save Note"
-            />
+        {isLargeScreen && (
+          <Box>
+            <Box pl={55}>
+              <img
+                src={vortexImg}
+                style={{
+                  width: "44vh",
+                  height: "40vh",
+                  transform: "rotate(-90deg)",
+                }}
+                alt="Vortex"
+              />
+            </Box>
+            <Box pl={20}>
+              <img
+                src={noteImg}
+                style={{
+                  width: "52vh",
+                  height: "48vh",
+                }}
+                alt="Note"
+              />
+            </Box>
           </Box>
-          <Box pl={20}>
-            <img
-              src={noteImg}
-              style={{
-                width: "52vh",
-                height: "48vh",
-              }}
-              alt="Save Note"
-            />
-          </Box>
-        </Box>
+        )}
       </Box>
     </Box>
   );

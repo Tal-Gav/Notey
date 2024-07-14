@@ -1,7 +1,14 @@
-import { Box, IconButton, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import { deleteNote, updateNote } from "../store/notesSlice";
@@ -40,6 +47,23 @@ const Note = ({ note }) => {
     }
   };
 
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSm = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const isMd = useMediaQuery(theme.breakpoints.between("md", "lg"));
+  const isLg = useMediaQuery(theme.breakpoints.between("lg", "xl"));
+  const isXl = useMediaQuery(theme.breakpoints.up("xl"));
+
+  const [rows, setRows] = useState(2);
+
+  useEffect(() => {
+    if (isXs) setRows(3);
+    else if (isSm) setRows(3);
+    else if (isMd) setRows(7);
+    else if (isLg) setRows(5);
+    else if (isXl) setRows(6);
+  }, [isXs, isSm, isMd, isLg, isXl]);
+
   return (
     <Box
       m={2}
@@ -52,18 +76,21 @@ const Note = ({ note }) => {
       <Box
         p={3}
         sx={{
-          width: "20vw", // Adjust to maintain square shape
-          height: "20vw", // Adjust to maintain square shape
+          width: { xs: "235px", sm: "250px", md: "350px", lg: "300px" },
+          height: { xs: "235px", sm: "250px", md: "350px", lg: "300px" },
           borderRadius: "2em",
           boxShadow: "0px 0px 20px 0px #5730bfb3",
           bgcolor: "white",
-          marginBottom: "20px", // Add margin bottom for spacing between notes
+          marginBottom: "20px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden", // Prevent elements from leaking out
         }}
         data-tooltip-id={`${noteId}-tooltip`}
         data-tooltip-place="bottom"
       >
         {note && (
-          <Typography fontSize={"0.8em"} color={"#A1A1A1"}>
+          <Typography fontSize={isXs ? "0.65em" : "0.7em"} color={"#A1A1A1"}>
             id: {noteId}
           </Typography>
         )}
@@ -73,7 +100,7 @@ const Note = ({ note }) => {
           variant="outlined"
           value={noteTitle}
           label="Title"
-          fullWidth // Ensure fullWidth is set to true
+          fullWidth
           InputProps={{
             style: {
               borderRadius: "1em",
@@ -88,6 +115,7 @@ const Note = ({ note }) => {
                 borderColor: "#6F00FF",
               },
             },
+            maxWidth: "100%",
           }}
         />
         <Box pt={2} />
@@ -96,9 +124,9 @@ const Note = ({ note }) => {
           onChange={(e) => setNoteContent(e.target.value)}
           value={noteContent}
           label="Content"
-          fullWidth // Ensure fullWidth is set to true
+          fullWidth
           multiline
-          rows={5}
+          rows={rows}
           InputProps={{
             style: {
               borderRadius: "1em",
@@ -116,7 +144,14 @@ const Note = ({ note }) => {
           }}
         />
         {note && (
-          <Box sx={{ display: "flex", justifyContent: "center", pt: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              pt: 2,
+              width: "100%",
+            }}
+          >
             <Tooltip id={`${noteId}-tooltip`} clickable>
               <IconButton onClick={handleNoteDelete}>
                 <DeleteIcon sx={{ color: "white" }} />

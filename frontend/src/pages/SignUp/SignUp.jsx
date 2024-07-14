@@ -55,7 +55,17 @@ const Signup = () => {
           display: "flex",
           width: { xs: "85%", sm: "70%", md: "50%" },
           maxWidth: "400px",
-          height: { xs: "auto", sm: "80%", md: "80%" },
+          height: {
+            xs: "auto",
+            sm: "80%",
+            md: "80%",
+            "@media (min-height:600px) and (min-height:600px)": {
+              height: "85%",
+            },
+            "@media (min-width:375px) and (min-height:900px)": {
+              height: "55%",
+            },
+          },
           minHeight: { xs: "auto", sm: "300px", md: "400px" },
           borderRadius: "2em",
           boxShadow: "0px 0px 20px 0px #5730bfb3",
