@@ -41,7 +41,7 @@ const CreateNoteButton = () => {
             <img
               src={saveNoteIcon}
               style={{
-                width: "3vw",
+                width: "1.3em",
                 filter:
                   "invert(10%) sepia(100%) saturate(5422%) hue-rotate(267deg) brightness(108%) contrast(128%)",
               }}
@@ -57,7 +57,7 @@ const CreateNoteButton = () => {
             <img
               src={discardNoteIcon}
               style={{
-                width: "4vw",
+                width: "1.7em",
                 filter:
                   "invert(10%) sepia(100%) saturate(5422%) hue-rotate(267deg) brightness(108%) contrast(128%)",
               }}
@@ -74,7 +74,7 @@ const CreateNoteButton = () => {
           <img
             src={createNoteIcon}
             style={{
-              width: "4vw",
+              width: "1.7em",
               filter:
                 "invert(10%) sepia(100%) saturate(5422%) hue-rotate(267deg) brightness(108%) contrast(128%)",
             }}

@@ -54,13 +54,13 @@ const Note = ({ note }) => {
   const isLg = useMediaQuery(theme.breakpoints.between("lg", "xl"));
   const isXl = useMediaQuery(theme.breakpoints.up("xl"));
 
-  const [rows, setRows] = useState(2);
+  const [rows, setRows] = useState(5);
 
   useEffect(() => {
     if (isXs) setRows(3);
     else if (isSm) setRows(3);
-    else if (isMd) setRows(7);
-    else if (isLg) setRows(5);
+    else if (isMd) setRows(5);
+    else if (isLg) setRows(4);
     else if (isXl) setRows(6);
   }, [isXs, isSm, isMd, isLg, isXl]);
 
@@ -76,8 +76,8 @@ const Note = ({ note }) => {
       <Box
         p={3}
         sx={{
-          width: { xs: "235px", sm: "250px", md: "350px", lg: "300px" },
-          height: { xs: "235px", sm: "250px", md: "350px", lg: "300px" },
+          width: { xs: "235px", sm: "250px", md: "300px", lg: "260px" },
+          height: { xs: "235px", sm: "250px", md: "300px", lg: "260px" },
           borderRadius: "2em",
           boxShadow: "0px 0px 20px 0px #5730bfb3",
           bgcolor: "white",
