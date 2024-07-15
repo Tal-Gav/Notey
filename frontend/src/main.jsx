@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
+import "./index.css";
 import "./fonts/TT-Fors-Medium.ttf";
 import "./fonts/TT-Fors-Regular.ttf";
 import "./fonts/EncodeSansSemiCondensed-ExtraLight.ttf";
@@ -9,7 +9,7 @@ import "./fonts/Outfit-ExtraBold.ttf";
 import "./fonts/Outfit-ExtraBold.ttf";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
-import { ToastContainer, toast, Bounce } from "react-toastify";
+import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./context/AuthProvider";
 
@@ -34,7 +34,3 @@ root.render(
     />
   </Provider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

@@ -7,7 +7,6 @@ import {
 
 export const login = async (req, res) => {
   const { email, password } = req.body.account;
-  console.log(req.body.account);
 
   if (!email || !password) {
     return res.status(400).json({ message: "All fields are required" });
@@ -42,12 +41,10 @@ export const login = async (req, res) => {
 };
 
 export const refresh = async (req, res) => {
-  console.log("need a new aT");
+  console.log("Account needs a new access token");
   const refreshToken = req.cookies.jwt;
 
   try {
-    // check json web token exists & is verified
-    console.log(req.cookies);
     if (refreshToken) {
       jwt.verify(
         refreshToken,
@@ -93,9 +90,9 @@ export const refresh = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  console.log("logout");
+  console.log("account logged out");
   const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(204); //No content
+  if (!cookies?.jwt) return res.sendStatus(204);
   res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
   res.json({ message: "Cookie cleared" });
 };
