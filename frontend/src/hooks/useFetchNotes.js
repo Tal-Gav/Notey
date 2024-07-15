@@ -11,7 +11,7 @@ const useFetchNotes = () => {
     try {
       const response = await axiosPrivate.get("/notes");
       dispatch(setNotes(response.data.notes));
-      toast.success("Noted loaded");
+      toast.success("Notes loaded");
     } catch (error) {
       toast.error(error.response.data.message);
     }
